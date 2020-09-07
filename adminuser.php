@@ -66,7 +66,7 @@ function zeige_formular($fehler = '')
 	input_text('name', 'Name');
 	input_text('vorname', 'Vorname');
 	input_text('userpreis', 'Preis pro Stunde');
-	input_submit('neueruser','1','neuen User eintragen');
+	input_submit('neueruser','2','Neuen User anlegen');
 	input_hidden();
 	print "</table>\n\n";
 	print "</fieldset>\n";

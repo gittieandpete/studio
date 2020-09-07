@@ -121,7 +121,7 @@ function zeige_formular($fehler = '')
 
 	print "\t<tr>\n";
 	// $feldname, $colspan, $label
-	input_submit('absenden','3','ändern');
+	input_submit('absenden','4','ändern');
 	print "\t</tr>\n\n";
 	print "</table>";
 	print "\t</fieldset>\n";

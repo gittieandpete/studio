@@ -46,6 +46,10 @@ th, td
 	vertical-align:	top;
 	text-align:	left;
 }
+td.submit input {
+	display: block;
+	margin: 15px auto;
+}
 ul
 	{
 	list-style-type:	none;

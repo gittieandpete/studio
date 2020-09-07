@@ -8,13 +8,13 @@ function buchung_mailen($userid,$buchungsbeginn,$buchungsende,$text='Buchung')
 	// MAILADRESSE siehe definitions.php
 
 	// Welchen Betreff soll die Mail erhalten?
-	$strSubject  = TITEL;
+	$strSubject = TITEL;
 	// wie heißt der User (Reply-Mailadresse)
 	$user = $_SESSION['benutzer'];
 	$vorname = $_SESSION['vorname'];
 	$name = $_SESSION['name'];
 	// Mail-Layout
-	$header = "From: " . $user . "\nReply-To: " . $user . "\nContent-type: text/plain; charset=ISO-8859-1\n";
+	$header = "From: " . $user . "\nReply-To: " . $user . "\nContent-type: text/plain; charset=UTF-8\n";
 	$mailtext = $text . strftime(' von %A, %x, %H:%M Uhr ',$buchungsbeginn) . strftime('bis %A, %x, %H:%M Uhr',$buchungsende) . ", $vorname $name.";
 	// abschicken
 	fehlersuche("Header: $header<br>\nAn: " . MAILADRESSE . "<br>\nBetreff: $strSubject<br>\nText: $mailtext<br>",'Mailtext');
@@ -54,7 +54,7 @@ function menue ($adresse,$ankertext,$linktitel='Link')
     <?php }
 }
 
-function pdo_out($pdo_handle,$sql,$caption = 'Tabelle')
+function pdo_out($pdo_handle,$sql,$caption='Tabelle')
     {
     $stmt = $pdo_handle -> query($sql);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -62,7 +62,7 @@ function pdo_out($pdo_handle,$sql,$caption = 'Tabelle')
     $columnkeys = array_keys($stmt->fetch(PDO::FETCH_ASSOC)); 
     ?> 
 
-    <table class = "pdo_out">
+    <table class='pdo_out'>
     <caption><?php print $caption;?></caption>
     <tr>
     <?php for ($i=0;$i<count($columnkeys);$i++)
@@ -82,9 +82,9 @@ function pdo_out($pdo_handle,$sql,$caption = 'Tabelle')
     </table>
 <?php }
 
-function pdo_result_out($result,$columnkeys,$caption = 'Tabelle')
+function pdo_result_out($result,$columnkeys,$caption='Tabelle')
     { ?> 
-    <table class = "pdo_out">
+    <table class='pdo_out'>
     <caption><?php print $caption;?></caption>
     <tr>
     <?php for ($i=0;$i<count($columnkeys);$i++)
@@ -103,17 +103,6 @@ function pdo_result_out($result,$columnkeys,$caption = 'Tabelle')
     <?php } ?> 
     </table>
 <?php }
-
-function out($var, $name = 'Var: ')
-    {
-    if (is_array($var))
-        { ?> 
-        <pre>Array <?php print $name; 
-        print_r($var);?></pre>
-    <?php } else { ?> 
-    <p><?php print $name . ' ' . $var;?></p>
-    <?php }
-}
 
 // bezieht sich auf das hidden-Feld im Formular
 function iswech()
@@ -193,97 +182,85 @@ function zeige_logoutformular()
 ############################
 // Textfeld, Passwortfeld, mit <tr> und zwei <td>s, select, submit ohne <tr>, hidden ohne alles
 // Ein Textfeld ausgeben
-function input_text($feldname, $label= 'Textfeld')
-    {
-    print "\t<tr>\n\t<td class=\"rechts\">$label: </td>\n";
+function input_text($feldname, $label='Textfeld')
+    { ?> 
+    <tr><td class='rechts'><?php print $label;?>: </td>
+    <?php 
     if (iswech() && isset($_POST['benutzer']))
-        {
-        print "\t<td><input type=\"text\" name=\"$feldname\" value=\"" . htmlentities($_POST[$feldname]) .  "\"></td>\n";
-    } elseif (isset($_SESSION['benutzer']) && isset($_SESSION[$feldname]))
-        {
-        print "\t<td><input type=\"text\" name=\"$feldname\" value=\"" . htmlentities($_SESSION[$feldname]) .  "\"></td>\n";
-    } else {
-        print "\t<td><input type=\"text\" name=\"$feldname\"></td>\n";
-    }
-    print "\t</tr>\n\n";
-}
+        { ?> 
+        <td><input type='text' name='<?php print $feldname;?>' value='<?php print htmlentities($_POST[$feldname]);?>'></td>
+    <?php } elseif (isset($_SESSION['benutzer']) && isset($_SESSION[$feldname]))
+        { ?> 
+        <td><input type='text' name='<?php print $feldname;?>' value='<?php print htmlentities($_SESSION[$feldname]);?>'></td>
+    <?php } else { ?> 
+		<td><input type='text' name='<?php print $feldname;?>'></td>
+    <?php } ?> 
+    </tr>
+<?php }
 
 // Eine Selectfeld ausgeben
 function input_select($feldname, $timedefaults, $optionen)
-    {
-    print "\t\t<select size=\"1\" name=\"$feldname\" id=\"$feldname\">\n";
-    // braucht Wert und Label, schon sortiert
+    { ?>
+    <select size='1' name='<?php print $feldname;?>' id='<?php print $feldname;?>'>
+    <?php // braucht Wert und Label, schon sortiert
     foreach ($optionen as $wert => $label)
         {
         if (isset($_POST[$feldname]) && $_POST[$feldname] == $wert)
-            {
-            // print "<option> Ausgabe: $_POST[$feldname] </option>";
-            print "\t\t\t<option selected value=\"$wert\">$label</option>\n";
-        } elseif (!isset($_POST[$feldname]) && $timedefaults[$feldname] == $wert)
-            {
-            // print "<option> Ausgabe: $timedefaults[$feldname] </option>";
-            print "\t\t\t<option selected value=\"$wert\">$label</option>\n";
-        } else {
-            print "\t\t\t<option value=\"$wert\">$label</option>\n";
-        }
-    }
-    print "\t\t</select>\n";
-}
+            { ?> 
+            <option selected value='<?php print $wert;?>'><?php print $label;?></option>
+		<?php } elseif (!isset($_POST[$feldname]) && $timedefaults[$feldname] == $wert)
+            { ?>
+            <option selected value='<?php print $wert;?>'><?php print $label;?></option>
+        <?php } else { ?> 
+            <option value='<?php print $wert;?>'><?php print $label;?></option>
+        <?php }
+    } ?> 
+    </select>
+<?php }
 
 // Passwort-Feld ausgeben
-function input_passwort($feldname, $label = 'Passwort')
-    {
-    // $werte = $_POST[$feldname]; brauche ich beim Passwort nicht
-    print "\t<tr>\n";
-    print "\t<td class=\"rechts\">$label: </td>\n";
-    print "\t<td><input type=\"password\" name=\"$feldname\"></td>\n";
-    print "\t</tr>\n\n";
-}
+function input_passwort($feldname, $label='Passwort')
+    { 
+    // $werte = $_POST[$feldname]; brauche ich beim Passwort nicht ?> 
+    <tr>
+		<td class='rechts'><?php print $label;?>: </td>
+		<td><input type='password' name='<?php print $feldname;?>'></td>
+    </tr>
+<?php }
 
 // Einen Absenden-Button ausgeben
-function input_submit($feldname, $colspan, $label = 'Absenden')
-    {
-    if ($colspan > 0)
-        {
-        print "\t<td colspan=\"$colspan\"></td>\n";
-    }
-    print "\t<td><input type=\"submit\" name=\"$feldname\" value=\"$label\"></td>\n";
-}
+function input_submit($feldname, $colspan=1, $label='Absenden')
+    { ?> 
+    <tr>
+		<td colspan='<?php print $colspan;?>' class='submit'><input type='submit' name='<?php print $feldname;?>' value='<?php print $label;?>'></td>
+	</tr>
+<?php }
 
 // Einen Absenden-Button ausgeben mit <span>
-function input_submit_p($feldname, $label = 'Absenden')
-    {
-    print "\t<span><input type=\"submit\" name=\"$feldname\" value=\"$label\">\n";
-}
+function input_submit_p($feldname, $label='Absenden')
+    { ?> 
+    <span><input type='submit' name='<?php print $feldname;?>' value='<?php print $label;?>'></span>
+<?php }
 
 // das versteckte Formularfeld ausgeben
 function input_hidden($feldname = 'abgeschickt')
-    {
-    print "<input type=\"hidden\" name=\"$feldname\" value=\"1\">\n";
-}
-
-// die folgenden noch bearbeiten
-// Ein mehrzeiliges Textfeld ausgeben
-function input_textarea($elementname, $werte)
-    {
-    print '<textarea name="' . $elementname .'">';
-    print htmlentities($werte[$elementname]) . '</textarea>';
-}
+    { ?> 
+    <input type='hidden' name='<?php print $feldname;?>' value='1'>
+<?php }
 
 // Einen Radiobutton oder eine Checkbox ausgeben
 // input type="radio" oder
 // input type="checkbox"
 function input_radiocheck($typ, $feldname, $werte, $feldwert)
-    {
-    print '<input type="' . $typ . '" name="' . $feldname .'" value="' . $feldwert . '" ';
-    // fehlersuche($feldname, 'Feldname');
-    // fehlersuche($werte,'Werte-Array');
-    if (isset($feldwert) && isset($werte) && isset($werte[$feldname]))
+    { ?> 
+    <input type='<?php print $typ;?>' name='<?php print $feldname;?>' value='<?php print $feldwert;?>' 
+    <?php if (isset($feldwert) && isset($werte) && isset($werte[$feldname]))
         {
         if ($feldwert == $werte[$feldname])
-            {
-            print ' checked="checked"';
-        }
-    }
-    print '>';
-}
+            { ?> 
+             checked
+        <?php }
+    } // schließendes tag input ?>
+    >
+<?php }
+
