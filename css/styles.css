@@ -1,0 +1,287 @@
+@media screen, projection
+	{
+
+a:link
+	{
+	color:	blue;
+	text-decoration:	none;
+}
+a:visited
+	{
+	color:	purple;
+}
+a:hover
+	{
+	color:	red;
+	text-decoration:	underline;
+}
+
+body
+	{
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	color:	#000;
+	background:	#fff;
+	margin:	0;
+	padding:	0;
+}
+h1.logo
+	{
+	font-size:	160%;
+	letter-spacing:	5px;
+}
+h2
+	{
+	font-size:	140%;
+}
+table
+	{
+	border-collapse:	collapse;
+}
+table.rahmen
+	{
+	margin-top:	30px;
+}
+th, td
+	{
+	vertical-align:	top;
+	text-align:	left;
+}
+ul
+	{
+	list-style-type:	none;
+}
+ul.menu {
+	margin: 0 0 27px 27px;
+}
+#flip_nav, #flip_top{ 
+	display: none;
+	}
+#fusszeile
+	{
+		clear: both;
+	margin:	27px 0 0 0;
+	border-top:	1px solid #707070;
+}
+#linkliste , #adminliste
+	{
+	float:	right;
+	margin:	0 0 0 27px;
+		padding: 0;
+		clear: right;
+}
+#outer
+	{
+	max-width:	1000px;
+	margin:	70px auto;
+	padding: 50px;
+	color:	#000;
+	background-color:	#fff;
+		border: 1px solid #ccc;
+}
+.aktuell, li.aktuell, .meldung
+	{
+	color:	red;
+}
+.alt
+	{
+	background:	#ECECEC;
+}
+.angebote
+	{
+	border:	1px solid #000;
+}
+.bg1
+	{
+	background-color:	#ececec;
+}
+.buchungzeigen td, .buchungzeigen th
+	{
+	padding:	5px;
+	border:	1px solid #000;
+}
+.daten, .rahmen
+	{
+	border-collapse:	collapse;
+	empty-cells:	show;
+}
+.daten td, .daten th, .kalender td, .kalender th
+	{
+	text-align:	right;
+	vertical-align:	top;
+	padding:	3px;
+	border:	1px solid #000;
+}
+.fehlersuche
+	{
+	font-size:	90%;
+	float:	right;
+	background-color:	#ff0;
+	margin:	10px;
+	padding:	10px;
+	border:	1px solid #000;
+}
+form.kalender {
+	margin: 0 0 5px 0;
+}
+.kalender input, .kalender select{
+	margin: 0 8px 0 0;
+}
+.kalender th
+	{
+	text-align:	center;
+}
+.kalenderzelle
+	{
+	font-size:	80%;
+	text-align:	left;
+	min-width: 	80px;
+	min-height: 	80px;
+	background-color: 	#fffacd;
+}
+.kopfzeile
+	{
+	margin:	0 0 27px 0;
+	padding:	0 0 27px 0;
+	border-bottom:	1px solid #707070;
+}
+.logoutformular {
+	float: right;
+}
+.logoutformular fieldset {
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+.meldung
+	{
+	color:	red;
+	font-weight:	bold;
+}
+.menu
+	{
+	margin:	0;
+	padding: 0;
+
+}
+.menu li
+	{
+	margin:	5px;
+	padding:	5px 0;
+	font-size:	90%;
+	border-bottom: 1px solid #ccc;
+}
+.menu a
+	{
+	background-color:	#fff;
+	display: 	block;
+
+}
+.menu a:visited
+	{
+	text-decoration:	none;
+}
+.menu a:hover
+	{
+	text-decoration:	none;
+}
+.rechts
+	{
+	float:	right;
+}
+.rahmen td, .rahmen th, .pdo_out td, .pdo_out th
+	{
+	padding:	3px;
+	border:	1px solid silver; 
+}
+.zentriert
+	{
+	text-align:	center;
+}
+
+}
+/*-------------------------------------
+Ende media screen
+-------------------------------------*/
+@media handheld, screen and (max-width:700px) {
+	body {
+		margin: 0;
+		padding: 0;
+}
+/* hier ist jetzt Platz weil die Navi oben ist */
+table.kalender {
+	width: 95%;
+}
+#outer {
+	margin: 0;
+	max-width: initial;
+	padding: 5px;
+  border: none;
+}
+/* Platz fuer Navi */
+	#kopf {
+		width: 80%;
+	}
+/**********************
+Navigation Handheld
+********************/
+#linkliste {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 10;
+	-webkit-transition: .5s;
+	transition: .5s;
+	opacity: 0;
+	visibility: hidden;
+	overflow: hidden;
+	background-color: #fff;
+}
+#linkliste:target {
+	opacity: 0.9;
+	visibility: visible;
+	z-index: 50;
+	width: 100%;
+	border: 1px solid #ccc;
+}
+#flip_nav {
+	display: block;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	margin: 0;
+	z-index: 50;
+	background-image: -webkit-repeating-linear-gradient(#ccc, #ccc 2px, #fff 2px, #fff 4px);
+	background-image: repeating-linear-gradient(#ccc, #ccc 2px, #fff 2px, #fff 4px);	
+}
+.flip_hilfe {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 40px;
+	height: 0;
+	padding-top: 40px;
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background: white 10px 10px / 20px 20px no-repeat;
+}
+#linkliste #flip_top {
+	visibility: visible;
+	display: block;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 40px;
+	height: 0px;
+	padding: 40px 0 0 0;
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background: white 10px 10px / 20px 20px no-repeat;
+	background-image: linear-gradient(45deg, transparent 13px, #ccc 13px, #ccc 15px, transparent 0), linear-gradient(-45deg, white 13px, #ccc 13px, #ccc 15px, white 0);
+}
+/***********************/
+.kalenderzelle
+	{
+	min-width: 	initial;
+	min-height: 	initial;
+}
