@@ -13,7 +13,8 @@ require('includes/kopf.php');
 require('includes/navi.php');
 print "<h2>$titel</h2>";
 
-if ($_SESSION['login'] == 0) print "<p>Bitte logge dich ein!</p>";
+logincheck();
+
 if ($_SESSION['login'] == 1)
 	{
 

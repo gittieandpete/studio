@@ -114,6 +114,14 @@ function iswech()
     return false;
 }
 
+function logincheck()
+	{
+	if ($_SESSION['login'] == 0) 
+		{ ?> 
+		<p>Bitte <a href='<?php print LOGIN;?>'>logge dich ein</a>!</p>
+	<?php }
+}
+
 function validiere_logoutformular()
     {
     $fehler = array();

@@ -1,8 +1,8 @@
 <div class="kopfzeile">
+
+<h1 class='logo' id='kopf'><?php print TITEL;?></h1>
+
 <?php
-
-print '<h1 class="logo" id="kopf">' . TITEL . '</h1>';
-
 // gesetzte Variablen
 if (!isset ($_SESSION['login']))
     {

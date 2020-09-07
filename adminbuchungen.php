@@ -22,13 +22,13 @@ Admin-Werte:
 Addition der Berechtigungen ist möglich, z.B. 7 darf alles
 */
 
-if ($_SESSION['login'] == 0) print "<p>Bitte <a href=\"" . LOGIN . "\">logge</a> dich <a href=\"" . LOGIN . "\">ein</a>!</p>";
-
+logincheck();
+	
 if ($_SESSION['admin']>3)
 	{
-	global $pdo_handle;
-	print "<h2>$titel</h2>";
-	// Buchungen sehen
+	global $pdo_handle; ?> 
+	<h2><?php print $titel;?></h2>
+	<?php // Buchungen sehen
 	$rechnungsjahr = date('Y');
 	$sql = " select
 		studio_buchung.userID as 'ID',

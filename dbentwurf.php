@@ -12,7 +12,8 @@ require('includes/head.php');
 require('includes/kopf.php');
 require('includes/navi.php');
 
-if ($_SESSION['login'] == 0) print "<p>Bitte <a href=\"" . LOGIN . "\">logge</a> dich <a href=\"" . LOGIN . "\">ein</a>!</p>";
+logincheck();
+
 if ($_SESSION['login'] == 1)
 	{
 	print "<h2>$titel</h2>";

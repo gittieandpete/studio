@@ -13,6 +13,10 @@ require('includes/kopf.php');
 require('includes/navi.php');
 print "<h2>$titel</h2>";
 
+logincheck();
+
+if ($_SESSION['login'] == 1)
+	{
 if (!isset($_SESSION['buchung']))
 	{
 	$_SESSION['buchung'] == 'nichtausgefuehrt';
@@ -167,6 +171,8 @@ HTML;
 	print "<li><a href=\"" . BUCHUNGAENDERN . "\">Buchung ändern</a></li>";
 	print "</ul>";
 }
+
+} // logincheck
 
 fehlersuche ($_POST);
 fehlersuche ($_SESSION);
