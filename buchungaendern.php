@@ -1,5 +1,5 @@
 <?php
-$titel = "Buchung ändern";
+$titel = "Buchung Ã¤ndern";
 require('includes/functions.php');
 require('includes/definitions.php');
 require('../../../files/c-major/login_web330.php');
@@ -25,8 +25,8 @@ if ($_SESSION['login'] == 1)
 	$_SESSION['aenderung'] = 'steht_aus';
 	$userid = $_SESSION['userid'];
 
-	print "<h3>Buchungsübersicht</h3>";
-	// Buchungs-ID-Liste erzeugen (keine Änderung für Buchungen, die in der Vergangenheit liegen):
+	print "<h3>BuchungsÃ¼bersicht</h3>";
+	// Buchungs-ID-Liste erzeugen (keine Ã„nderung fÃ¼r Buchungen, die in der Vergangenheit liegen):
 	$sql = "SELECT id
 		FROM studio_buchung
 		WHERE userID = :userid
@@ -100,7 +100,7 @@ function zeige_formular($fehler = '')
 		{
 		print "\t<th>$columnkeys[$i]</th>\n";
 	}
-	// zusätzliche Spalte Radio-Button
+	// zusÃ¤tzliche Spalte Radio-Button
 	print "\t<th>Wahl</th>\n";
 	print "\t</tr>\n\n";
 
@@ -121,7 +121,7 @@ function zeige_formular($fehler = '')
 
 	print "\t<tr>\n";
 	// $feldname, $colspan, $label
-	input_submit('absenden','3','ändern');
+	input_submit('absenden','3','Ã¤ndern');
 	print "\t</tr>\n\n";
 	print "</table>";
 	print "\t</fieldset>\n";
@@ -138,10 +138,10 @@ function validiere_formular()
 		{
 		if (!in_array($_POST['aendern'], $idwerte))
 			{
-			$fehler[] = 'Die ausgewählte Buchung existiert nicht.';
+			$fehler[] = 'Die ausgewÃ¤hlte Buchung existiert nicht.';
 		}
 	} else {
-		$fehler[] = 'Wähle eine Buchung aus!';
+		$fehler[] = 'WÃ¤hle eine Buchung aus!';
 	}
 	return $fehler;
 }
@@ -165,11 +165,11 @@ function verarbeite_formular()
 	$result = $stmt->fetchAll(PDO::FETCH_OBJ);
 	$stmt -> execute();
 	if ($result) $columnkeys = array_keys($stmt->fetch(PDO::FETCH_ASSOC));
-	$caption = 'Diese Buchung wurde ausgewählt:';
+	$caption = 'Diese Buchung wurde ausgewÃ¤hlt:';
 	//function pdo_result_out($result,$columnkeys,$caption = 'Tabelle')
 	pdo_result_out($result,$columnkeys,$caption);
 
-	print "<p><a href=\"" . AENDERUNGAUSFUEHREN . "\">Weiter &rarr; (Änderung ausführen)</a></p>";
+	print "<p><a href=\"" . AENDERUNGAUSFUEHREN . "\">Weiter &rarr; (Ã„nderung ausfÃ¼hren)</a></p>";
 }
 fehlersuche ($_POST, 'Post');
 fehlersuche ($_SESSION, 'Session');

@@ -1,5 +1,5 @@
 <?php
-$titel = "Buchung löschen";
+$titel = "Buchung lÃ¶schen";
 require('includes/functions.php');
 require('includes/definitions.php');
 require('../../../files/c-major/login_web330.php');
@@ -20,7 +20,7 @@ if ($_SESSION['login'] == 1)
 	{
 	global $pdo_handle;
 	$_SESSION['loeschung'] = 'steht_aus';
-	print "<h3>Buchungsübersicht</h3>";
+	print "<h3>BuchungsÃ¼bersicht</h3>";
 	// Benutzer-ID suchen
 	$userid = $_SESSION['userid'];
 	// Buchungs-ID-Liste erzeugen:
@@ -83,7 +83,7 @@ function zeige_formular($fehler = '')
 	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	$stmt -> execute();
 	if ($result) $columnkeys = array_keys($stmt->fetch(PDO::FETCH_ASSOC));
-	fehlersuche($result,'Abfrage Löschung DB');
+	fehlersuche($result,'Abfrage LÃ¶schung DB');
 	print "<form method=\"POST\" action=\"" . htmlspecialchars($_SERVER['PHP_SELF']) . "\">\n";
 	print "\t<fieldset>\n";
 	print "\t<legend>Buchung aussuchen</legend>\n";
@@ -94,7 +94,7 @@ function zeige_formular($fehler = '')
 		{
 		print "\t<th>$columnkeys[$i]</th>\n";
 	}
-	// zusätzliche Spalte Radio-Button
+	// zusÃ¤tzliche Spalte Radio-Button
 	print "\t<th>Wahl</th>\n";
 	print "\t</tr>\n\n";
 
@@ -115,7 +115,7 @@ function zeige_formular($fehler = '')
 
 	print "\t<tr>\n";
 	// $feldname, $colspan, $label
-	input_submit('absenden','3','löschen');
+	input_submit('absenden','3','lÃ¶schen');
 	print "\t</tr>\n\n";
 	print "</table>";
 	print "\t</fieldset>\n";
@@ -129,15 +129,15 @@ function validiere_formular()
 	global $idwerte, $userid, $now;
 	$fehler = array();
 	$fehler = validiere_post($_POST,$fehler);
-	fehlersuche($_POST['loeschen'],'POST löschen Wert:');
+	fehlersuche($_POST['loeschen'],'POST lÃ¶schen Wert:');
 	if (isset($_POST['loeschen']))
 		{
 		if (!in_array($_POST['loeschen'], $idwerte))
 			{
-			$fehler[] = 'Die ausgewählte Buchung existiert nicht.';
+			$fehler[] = 'Die ausgewÃ¤hlte Buchung existiert nicht.';
 		}
 	} else {
-		$fehler[] = 'Wähle eine Buchung aus!';
+		$fehler[] = 'WÃ¤hle eine Buchung aus!';
 	}
 	return $fehler;
 }
@@ -160,9 +160,9 @@ function verarbeite_formular()
 	$stmt -> execute();
 	if ($result) $columnkeys = array_keys($stmt->fetch(PDO::FETCH_ASSOC));
 	//function pdo_result_out($result,$columnkeys,$caption = 'Tabelle')
-	$caption='Diese Buchung löschen';
+	$caption='Diese Buchung lÃ¶schen';
 	pdo_result_out($result,$columnkeys,$caption);
-	print "<p><a href=\"" . LOESCHUNGAUSFUEHREN . "\">Weiter &rarr; (Löschung ausführen)</a></p>";
+	print "<p><a href=\"" . LOESCHUNGAUSFUEHREN . "\">Weiter &rarr; (LÃ¶schung ausfÃ¼hren)</a></p>";
 }
 
 fehlersuche ($_POST);

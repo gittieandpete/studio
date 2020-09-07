@@ -46,7 +46,7 @@ if ($_SESSION['login'] == 1)
 	print "<p>Hallo " . $_SESSION['vorname']. "!</p>\n\n";
 }
 
-// $fehler = '' ist default und wird z.B. durch zeige_loginformular($formularfehler) überschrieben mit dem Inhalt von $formularfehler
+// $fehler = '' ist default und wird z.B. durch zeige_loginformular($formularfehler) Ã¼berschrieben mit dem Inhalt von $formularfehler
 function zeige_loginformular($fehler = '')
 	{
 	print "<form method=\"POST\" accept-charset=\"ISO-8859-1\" action=\"" . htmlspecialchars($_SERVER['PHP_SELF']) . "\">\n";
@@ -67,7 +67,7 @@ function zeige_loginformular($fehler = '')
 	input_submit('absenden','2','Login');
 	print "\t</tr>\n\n";
 	print "</table>\n\n";
-	// Defaultwert für den Feldnamen ist 'abgeschickt';
+	// Defaultwert fÃ¼r den Feldnamen ist 'abgeschickt';
 	input_hidden();
 	print "</fieldset>\n";
 	print "</form>\n\n";
@@ -102,21 +102,21 @@ function validiere_loginformular()
 	fehlersuche($benutzer, 'validiere Login, User');
 
 	fehlersuche($pass_changed, 'validiere Login, Pass changed');
-	$fehlermeldung = 'Bitte gib einen gültigen Benutzernamen und ein gültiges Passwort ein. <a href="' . PASSWORTVERGESSEN . '">Passwort vergessen?</a>';
+	$fehlermeldung = 'Bitte gib einen gÃ¼ltigen Benutzernamen und ein gÃ¼ltiges Passwort ein. <a href="' . PASSWORTVERGESSEN . '">Passwort vergessen?</a>';
 	if (isset($_POST['benutzer']) && isset($user_pw_liste))
 		{
-		// Sicherstellen, dass der Benutzername gültig ist
-		// Die Leute geben ihre Mailadresse auch manchmal mit Großbuchstaben ein.
+		// Sicherstellen, dass der Benutzername gÃ¼ltig ist
+		// Die Leute geben ihre Mailadresse auch manchmal mit GroÃŸbuchstaben ein.
 		$user = strtolower($_POST['benutzer']);
 		if (! array_key_exists($user, $user_pw_liste))
 			{
 			$fehler[1] = $fehlermeldung;
 		} elseif ($user_pw_liste[$user] != md5($_POST['passwort']))
 			// $user wegen strtolower (nicht $_POST['benutzer'])
-			// Prüfen, ob das Passwort korrekt ist
+			// PrÃ¼fen, ob das Passwort korrekt ist
 			// gespeichertes Passwort = $user_pw_liste[$_POST['benutzer']];
 			{
-			// Fehlermeldung gleich+wird ggf. überschrieben, erlaubt keine Rückschlüsse
+			// Fehlermeldung gleich+wird ggf. Ã¼berschrieben, erlaubt keine RÃ¼ckschlÃ¼sse
 			$fehler[1] = $fehlermeldung;
 		}
 	} else	{
@@ -130,7 +130,7 @@ function validiere_loginformular()
 
 function verarbeite_loginformular()
 	{
-	// Muss das Passwort geändert werden?
+	// Muss das Passwort geÃ¤ndert werden?
 	global $pdo_handle;
 
 	$user = strtolower($_POST['benutzer']);
@@ -156,10 +156,10 @@ function verarbeite_loginformular()
 	fehlersuche($p_c,'NULL 2014');
 	if ($p_c == 0)
 		{
-		print "<p>Das Passwort sollte <a href=\"" . PASSWORTAENDERN . "\">geändert</a> werden.</p>";
+		print "<p>Das Passwort sollte <a href=\"" . PASSWORTAENDERN . "\">geÃ¤ndert</a> werden.</p>";
 	}
-	// Der Session den Benutzernamen hinzufügen
-	// wichtig: beide Arrays müssen denselben key haben; also, wenn 'benutzer' bei $_SESSION, dann auch 'benutzer' bei $_POST. Brauche ich für die Rückgabe von bereits eingegebenen Werten in Formularen.
+	// Der Session den Benutzernamen hinzufÃ¼gen
+	// wichtig: beide Arrays mÃ¼ssen denselben key haben; also, wenn 'benutzer' bei $_SESSION, dann auch 'benutzer' bei $_POST. Brauche ich fÃ¼r die RÃ¼ckgabe von bereits eingegebenen Werten in Formularen.
 	$_SESSION['benutzer'] = $_POST['benutzer'];
 	// benutzer eingeloggt
 	$_SESSION['login'] = 1;

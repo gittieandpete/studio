@@ -1,6 +1,6 @@
 <div id="fusszeile">
 
-	<p>&copy; <?php print date ('Y');?> Peter Müller </p>
+	<p>&copy; <?php print date ('Y');?> Peter MÃ¼ller </p>
 
 </div>
 

@@ -33,8 +33,8 @@ function zeige_formular($fehler = '')
 	{
 	global $halbestunden, $stunden, $tage, $monate, $jahre;
 	global $monatenumerisch;
-	// Wenn das Formular übermittelt wurde, lese die Standardwerte aus den
-	// übermittelten Variablen
+	// Wenn das Formular Ã¼bermittelt wurde, lese die Standardwerte aus den
+	// Ã¼bermittelten Variablen
 	// Andernfalls setze eigene Standardwerte: aktuelle Zeit
 	$timedefaults = array(
 		'halbestunde' => '00',
@@ -74,7 +74,7 @@ function zeige_formular($fehler = '')
 	input_select('bishalbestunde', $timedefaults, $halbestunden);
 	print "</td></tr>";
 	print "\t<tr>\n";
-	input_submit('absenden','0','übernehmen');
+	input_submit('absenden','0','Ã¼bernehmen');
 	print "\t</tr>\n\n";
 	print "</table>";
 	print "\t</fieldset>\n";
@@ -131,9 +131,9 @@ or buchungsbeginn <= dbzeitbeginn AND buchungsende >= dbzeitende
 		{
 		if (count($result) == 1)
 			{
-			$fehler[] = 'Buchung nicht möglich, es gibt folgende Buchung:';
+			$fehler[] = 'Buchung nicht mÃ¶glich, es gibt folgende Buchung:';
 		} else {
-			$fehler[] = 'Buchung nicht möglich, es gibt folgende Buchungen:';
+			$fehler[] = 'Buchung nicht mÃ¶glich, es gibt folgende Buchungen:';
 		}
 		for ($i=0;$i<count($result);$i++)
 			{
@@ -146,23 +146,23 @@ or buchungsbeginn <= dbzeitbeginn AND buchungsende >= dbzeitende
 
 	if (!array_key_exists($_POST['halbestunde'], $halbestunden) || !array_key_exists($_POST['bishalbestunde'], $halbestunden))
 		{
-		$fehler[] = 'Wähle eine gültige Zeit (Minuten).';
+		$fehler[] = 'WÃ¤hle eine gÃ¼ltige Zeit (Minuten).';
 	}
 	if (!array_key_exists($_POST['stunde'], $stunden) || !array_key_exists($_POST['bisstunde'], $stunden))
 		{
-		$fehler[] = 'Wähle eine gültige Zeit (Stunden).';
+		$fehler[] = 'WÃ¤hle eine gÃ¼ltige Zeit (Stunden).';
 	}
 	if (!array_key_exists($_POST['tag'], $tage) || !array_key_exists($_POST['bistag'], $tage))
 		{
-		$fehler[] = 'Wähle einen gültigen Tag.';
+		$fehler[] = 'WÃ¤hle einen gÃ¼ltigen Tag.';
 	}
 	if (!array_key_exists($_POST['monat'], $monate) || !array_key_exists($_POST['bismonat'], $monate))
 		{
-		$fehler[] = 'Wähle einen gültigen Monat.';
+		$fehler[] = 'WÃ¤hle einen gÃ¼ltigen Monat.';
 	}
 	if (!array_key_exists($_POST['jahr'], $jahre) || !array_key_exists($_POST['bisjahr'], $jahre))
 		{
-		$fehler[] = 'Wähle ein gültiges Jahr.';
+		$fehler[] = 'WÃ¤hle ein gÃ¼ltiges Jahr.';
 	}
 	return $fehler;
 }

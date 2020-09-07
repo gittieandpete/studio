@@ -67,7 +67,7 @@ $tage = array(
 $monate = array(
 	1 => 'Januar',
 	'Februar',
-	'März',
+	'MÃ¤rz',
 	'April',
 	'Mai',
 	'Juni',

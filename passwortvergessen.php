@@ -20,7 +20,7 @@ if (!isset($_SESSION['passwort']) || !isset($_SESSION['sleep']))
 	fehlersuche($_SESSION['sleep']);
 }
 
-// zugrunde liegende Logik für das Formular
+// zugrunde liegende Logik fÃ¼r das Formular
 if (iswech())
 	{
 	if ($formularfehler = validiere_formular())
@@ -34,7 +34,7 @@ if (iswech())
 	zeige_formular();
 }
 
-// $fehler = '' ist default und wird z.B. durch zeige_formular($formularfehler) überschrieben
+// $fehler = '' ist default und wird z.B. durch zeige_formular($formularfehler) Ã¼berschrieben
 // mit dem Inhalt von $formularfehler
 function zeige_formular($fehler = '')
 	{
@@ -63,7 +63,7 @@ function validiere_formular()
 	{
 	global $pdo_handle;
 	$fehler = array();
-	// prüft $_POST-Werte auf Länge und Null-String
+	// prÃ¼ft $_POST-Werte auf LÃ¤nge und Null-String
 	$fehler = validiere_post($_POST,$fehler);
 
 	$sql = "SELECT DISTINCT user
@@ -94,8 +94,8 @@ function verarbeite_formular()
 	$user = $_SESSION['user'];
 	if ($_SESSION['passwort'] != 'gemailt')
 		{
-		// Die Daten in die Tabelle einfügen
-		// 216000 Möglichkeiten
+		// Die Daten in die Tabelle einfÃ¼gen
+		// 216000 MÃ¶glichkeiten
 		$kons = array (
 			'B',
 			'D',
@@ -130,8 +130,8 @@ function verarbeite_formular()
 		$strSubject  = 'Neues Passwort';
 		# Mail-Layout
 		$kopf = "Hallo,\n";
-		$inhalt = "Dein vorläufiges Passwort ist \n" . $pass . ". Bitte ändere nach dem nächsten Login (https://studio.c-major.de/) das Passwort!\n\nMailadresse: " . $user . "\nPasswort: " . $pass . "\n\n";
-		$fuss = "Viele Grüße,\n\nPeter\n";
+		$inhalt = "Dein vorlÃ¤ufiges Passwort ist \n" . $pass . ". Bitte Ã¤ndere nach dem nÃ¤chsten Login (https://studio.c-major.de/) das Passwort!\n\nMailadresse: " . $user . "\nPasswort: " . $pass . "\n\n";
+		$fuss = "Viele GrÃ¼ÃŸe,\n\nPeter\n";
 		$mailtext = $kopf . $inhalt . $fuss;
 		// charset ist hier anders als bei Lukas
 		$header = "From: peter.mueller@c-major.de\r\nContent-type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n";

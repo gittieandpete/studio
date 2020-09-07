@@ -15,11 +15,11 @@ require('includes/navi.php');
 // Konstanten siehe definitions.php
 /*
 Admin-Werte:
-		0 eigene Buchungen anlegen/bearbeiten/löschen
+		0 eigene Buchungen anlegen/bearbeiten/lÃ¶schen
 		1 User eintragen (%2>0)
 		2 alle Rechnungen sehen (%4>1)
 		4 alle Buchungen sehen (>3)
-Addition der Berechtigungen ist möglich, z.B. 7 darf alles
+Addition der Berechtigungen ist mÃ¶glich, z.B. 7 darf alles
 */
 
 if ($_SESSION['login'] == 0) print "<p>Bitte <a href=\"" . LOGIN . "\">logge</a> dich <a href=\"" . LOGIN . "\">ein</a>!</p>";

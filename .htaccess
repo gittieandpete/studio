@@ -1,0 +1,11 @@
+AddType image/x-icon .ico
+
+AddDefaultCharset utf-8
+
+AddHandler application/x-httpd-suphp .php .html
+
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^c-major\.de$ [NC,OR]
+RewriteCond %{HTTPS} =off
+RewriteRule ^(.*)$ https://studio.c-major.de/$1 [R=301,L]
+RewriteBase /

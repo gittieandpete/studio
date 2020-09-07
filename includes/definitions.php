@@ -1,5 +1,5 @@
 <?php
-// für leere Tipps in Formularfeldern
+// fÃ¼r leere Tipps in Formularfeldern
 define('DEFAULTWERT','?');
 define('TITEL', 'Studio Belegung');
 define('MAILADRESSE','peter.mueller@c-major.de');

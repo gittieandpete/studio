@@ -45,16 +45,16 @@ if ($_SESSION['login'] == 1)
 	admin-Werte siehe admin.php
 
 	-- ein paar Testuser eingeben
-	insert into studio_user (user, vorname, name, pass, pass_changed) values('petermueller@c-major.de', 'Peter', 'Müller', '123', '1');
-	insert into studio_user (user, vorname, name, pass, pass_changed) values('peter.mueller@c-major.de', 'Peter', 'Müller', '123', '1');
+	insert into studio_user (user, vorname, name, pass, pass_changed) values('petermueller@c-major.de', 'Peter', 'MÃ¼ller', '123', '1');
+	insert into studio_user (user, vorname, name, pass, pass_changed) values('peter.mueller@c-major.de', 'Peter', 'MÃ¼ller', '123', '1');
 	insert into studio_user (user, vorname, name, pass, pass_changed) values('kai@web.de', 'Kai', 'Buhr', '123', '1');
-	insert into studio_user (user, vorname, name, pass, pass_changed) values('jakob@c-major.de', 'Jakob', 'Köhler', '123', '1');
-	insert into studio_user (user, vorname, name, pass) values ('postfach.christinekoehler.de','Christine','Köhler','123');
+	insert into studio_user (user, vorname, name, pass, pass_changed) values('jakob@c-major.de', 'Jakob', 'KÃ¶hler', '123', '1');
+	insert into studio_user (user, vorname, name, pass) values ('postfach.christinekoehler.de','Christine','KÃ¶hler','123');
 	-- ein paar Buchungsdaten eingeben
 	insert into studio_buchung (userID, begintime, endtime) values('2', '2010-12-01 08:30:00', '2010-12-01 10:30:00');
 	insert into studio_buchung (userID, begintime, endtime) values('2', '2010-12-01 15:30:00', '2010-12-01 16:30:00');
 	insert into studio_buchung (userID, begintime, endtime) values('2', '2010-12-01 21:30:00', '2010-12-01 22:00:00');
-	-- pass mit md5 verschlüsseln
+	-- pass mit md5 verschlÃ¼sseln
 	update studio_user set pass = md5(pass) where pass = '123';
 
 	Und Testbuchungen:

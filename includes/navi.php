@@ -8,12 +8,12 @@
 	//function menue ($adresse,$ankertext,$linktitel='Link')
 	menue (LOGIN, 'Login', 'Startseite');
 	menue (NEUBUCHEN, 'Neu buchen','Neue Buchung anlegen');
-	menue (MEINEBUCHUNGEN, 'Meine Buchungen', 'Übersicht über meine zukünftigen Buchungen');
-	menue (MEINERECHNUNGEN, 'Meine Rechnungen', 'Übersicht über meine bisherigen Ausgaben dieses Jahr');
-	menue (BUCHUNGAENDERN, 'Buchung ändern', 'Eine bestehende Buchung ändern die noch nicht begonnen hat');
-	menue (BUCHUNGLOESCHEN, 'Buchung löschen', 'Eine Buchung löschen die noch nicht begonnen hat');
-	menue (KALENDER, 'Kalender', 'Übersicht über alle Termine eines Monats');
-	menue (PASSWORTAENDERN, 'Passwort ändern');
+	menue (MEINEBUCHUNGEN, 'Meine Buchungen', 'Ãœbersicht Ã¼ber meine zukÃ¼nftigen Buchungen');
+	menue (MEINERECHNUNGEN, 'Meine Rechnungen', 'Ãœbersicht Ã¼ber meine bisherigen Ausgaben dieses Jahr');
+	menue (BUCHUNGAENDERN, 'Buchung Ã¤ndern', 'Eine bestehende Buchung Ã¤ndern die noch nicht begonnen hat');
+	menue (BUCHUNGLOESCHEN, 'Buchung lÃ¶schen', 'Eine Buchung lÃ¶schen die noch nicht begonnen hat');
+	menue (KALENDER, 'Kalender', 'Ãœbersicht Ã¼ber alle Termine eines Monats');
+	menue (PASSWORTAENDERN, 'Passwort Ã¤ndern');
 
 if (isset($_SESSION['benutzer']) && $_SESSION['admin']>0)
 	{
@@ -23,11 +23,11 @@ if (isset($_SESSION['benutzer']) && $_SESSION['admin']>0)
 	}
 	if ($_SESSION['admin']%4>1)
 		{
-		menue (ADMINRECHNUNGEN, 'Alle Rechnungen', 'monatlich für dieses Jahr');
+		menue (ADMINRECHNUNGEN, 'Alle Rechnungen', 'monatlich fÃ¼r dieses Jahr');
 	}
 	if ($_SESSION['admin']%2>0)
 		{
-		menue (ADMINUSER, 'User verwalten', 'User hinzufügen');
+		menue (ADMINUSER, 'User verwalten', 'User hinzufÃ¼gen');
 	}
 }
 ?>

@@ -15,11 +15,11 @@ require('includes/navi.php');
 // Konstanten siehe definitions.php
 /*
 Admin-Werte:
-		0 eigene Buchungen anlegen/bearbeiten/lˆschen
+		0 eigene Buchungen anlegen/bearbeiten/l√∂schen
 		1 User eintragen (%2>0)
 		2 alle Rechnungen sehen (%4>1)
 		4 alle Buchungen sehen (>3)
-Addition der Berechtigungen ist mˆglich, z.B. 7 darf alles
+Addition der Berechtigungen ist m√∂glich, z.B. 7 darf alles
 */
 if ($_SESSION['login'] == 0) print "<p>Bitte <a href=\"" . LOGIN . "\">logge</a> dich <a href=\"" . LOGIN . "\">ein</a>!</p>";
 if ($_SESSION['login'] == 1 && $_SESSION['admin']%2>0)
@@ -46,7 +46,7 @@ $sql = "SELECT user as 'Mailadresse',
 	ORDER BY id";
 pdo_out($pdo_handle,$sql, 'Eingetragene User');
 print "<p>Das Default-Passwort ist '123'.</p>";
-print '<p>User lˆschen geht direkt in der Datenbank.</p>';
+print '<p>User l√∂schen geht direkt in der Datenbank.</p>';
 }
 
 // Beginn functions.
@@ -91,14 +91,14 @@ function validiere_formular()
 		$fehler[] = "Dezimalzeichen ist der Punkt(.)!";
 	}
 	fehlersuche ($_POST['userpreis'],'Postwert');
-	// Die Leute geben ihre Mailadresse auch manchmal mit Groﬂbuchstaben ein.
+	// Die Leute geben ihre Mailadresse auch manchmal mit Gro√übuchstaben ein.
 	$user = strtolower($_POST['user']);
 	// simples selbstgestricktes Muster
 	$muster = '/^[^@]+@[a-zA-Z0-9._\-]+\.[a-zA-Z]+$/';
 	$at = preg_match($muster, $user);
 	if (!$at)
 		{
-		$fehler[] = "Bitte gib eine g¸ltige Mailadresse ein!";
+		$fehler[] = "Bitte gib eine g√ºltige Mailadresse ein!";
 	}
 	// user=Mailadresse
 	$sql = "SELECT user
@@ -130,7 +130,7 @@ function verarbeite_formular()
 	{
 	global $pdo_handle;
 	// print "<p>Verarbeite: Post</p>";
-	// Die Leute geben ihre Mailadresse auch manchmal mit Groﬂbuchstaben ein.
+	// Die Leute geben ihre Mailadresse auch manchmal mit Gro√übuchstaben ein.
 	$user = strtolower($_POST['user']);
 	$vorname = $_POST['vorname'];
 	$name = $_POST['name'];

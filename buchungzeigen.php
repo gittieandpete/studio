@@ -63,7 +63,7 @@ function zeige_formular($fehler = '')
 	}
 	print "<form method=\"POST\" action=\"" . htmlspecialchars($_SERVER['PHP_SELF']) . "\">\n";
 	print "\t<fieldset>\n";
-	print "\t<legend>Buchung ausführen</legend>\n";
+	print "\t<legend>Buchung ausfÃ¼hren</legend>\n";
 	print <<<HTML
     <table>
         <tr><td>Buchungsbeginn</td><td>$wochentag, $anfang</td></tr>
@@ -87,7 +87,7 @@ function validiere_formular()
 	fehlersuche($_POST);
 	if ($_POST['ok'] != 'ok')
 		{
-		$fehler[] = 'Bitte bestätige die Buchung mit dem OK-Button!';
+		$fehler[] = 'Bitte bestÃ¤tige die Buchung mit dem OK-Button!';
 	}
 	if (!isset($_SESSION['login']))
 		{
@@ -95,7 +95,7 @@ function validiere_formular()
 	}
 	if ($_SESSION['buchung'] == 1)
 		{
-		$fehler[] = 'Bitte neue Buchungszeiten auswählen.';
+		$fehler[] = 'Bitte neue Buchungszeiten auswÃ¤hlen.';
 	}
 	if (isset($_SESSION['login']))
 		{
@@ -156,7 +156,7 @@ function verarbeite_formular()
 				<tr><td>Dauer</td><td>$anzahlstunden:$anzahlminuten Stunden</td></tr>
 			</table>
 HTML;
-			print "<p>Die Buchung wurde ausgeführt.</p>";
+			print "<p>Die Buchung wurde ausgefÃ¼hrt.</p>";
 		} else {
 			print "<p>Es gab einen Fehler beim Eintragen in die Datenbank.</p>";
 		}
@@ -164,7 +164,7 @@ HTML;
 	print "<ul>";
 	print "<li><a href=\"" . NEUBUCHEN . "\">Neu buchen</a></li>";
 	print "<li><a href=\"" . MEINEBUCHUNGEN . "\">Meine Buchungen</a></li>";
-	print "<li><a href=\"" . BUCHUNGAENDERN . "\">Buchung ändern</a></li>";
+	print "<li><a href=\"" . BUCHUNGAENDERN . "\">Buchung Ã¤ndern</a></li>";
 	print "</ul>";
 }
 

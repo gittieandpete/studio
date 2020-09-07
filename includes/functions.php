@@ -4,12 +4,12 @@ date_default_timezone_set('Europe/Berlin');
 
 function buchung_mailen($userid,$buchungsbeginn,$buchungsende,$text='Buchung')
 	{
-	// Zusätzlich die Buchung mailen
+	// ZusÃ¤tzlich die Buchung mailen
 	// MAILADRESSE siehe definitions.php
 
 	// Welchen Betreff soll die Mail erhalten?
 	$strSubject  = TITEL;
-	// wie heißt der User (Reply-Mailadresse)
+	// wie heiÃŸt der User (Reply-Mailadresse)
 	$user = $_SESSION['benutzer'];
 	$vorname = $_SESSION['vorname'];
 	$name = $_SESSION['name'];
@@ -26,7 +26,7 @@ function buchung_mailen($userid,$buchungsbeginn,$buchungsende,$text='Buchung')
 function connect ()
 	{
 	global $pdo_handle;
-	$dsn = 'mysql:host=localhost;dbname=' . DATENBANK . ';charset=latin1';
+	$dsn = 'mysql:host=localhost;dbname=' . DATENBANK . ';charset=utf8';
 	// default fetch-mode ist object (FETCH_OBJ)
 	$opt = array(
 		PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -37,7 +37,7 @@ function connect ()
 
 function fehlersuche($var,$info='Debug')
     { ?> 
-     <pre>
+     <pre class='fehlersuche'>
      <span><?php print $info ?>: <?php print_r($var); ?></span>
      </pre>
 <?php }
@@ -139,7 +139,7 @@ function validiere_logoutformular()
     return $fehler;
 }
 
-// prüft nur Länge und Null-string. Ändert nicht $_POST
+// prÃ¼ft nur LÃ¤nge und Null-string. Ã„ndert nicht $_POST
 function validiere_post($post,$fehler)
     {
     foreach($post as $key => $value)
@@ -154,7 +154,7 @@ function validiere_post($post,$fehler)
         }
         if (strlen($key) > 300 || strlen(trim($key)) == 0)
             {
-            $fehler[] = "Bitte fülle das Formular richtig aus!";
+            $fehler[] = "Bitte fÃ¼lle das Formular richtig aus!";
         }
     }
     return $fehler;

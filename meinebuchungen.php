@@ -19,7 +19,7 @@ print "<h2>$titel</h2>";
 if ($_SESSION['login'] == 0) print "<p>Bitte logge dich ein!</p>";
 if ($_SESSION['login'] == 1)
 	{
-	print "<h3>Buchungsübersicht</h3>";
+	print "<h3>BuchungsÃ¼bersicht</h3>";
 	$user = $_SESSION['benutzer'];
 	$userid = $_SESSION['userid'];
 	fehlersuche($userid, 'Userid');

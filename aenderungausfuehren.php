@@ -1,5 +1,5 @@
 <?php
-$titel = "Buchungsänderung ausführen";
+$titel = "BuchungsÃ¤nderung ausfÃ¼hren";
 require('includes/functions.php');
 require('includes/definitions.php');
 require('../../../files/c-major/login_web330.php');
@@ -95,7 +95,7 @@ function zeige_formular($fehler = '')
 	}
 	print "<form method=\"POST\" action=\"" . htmlspecialchars($_SERVER['PHP_SELF']) . "\">\n";
 	print "\t<fieldset>\n";
-	print "\t<legend>Änderung ausführen</legend>\n";
+	print "\t<legend>Ã„nderung ausfÃ¼hren</legend>\n";
 	print "<table>";
 	print "<tr><td colspan=\"5\">Buchungsbeginn:</td></tr>\n";
 	print "<tr><td>";
@@ -115,7 +115,7 @@ function zeige_formular($fehler = '')
 	print "</td></tr>";
 	print "\t<tr>\n";
 	// $feldname, $colspan, $label
-	input_submit('absenden','0', 'Änderung ausführen');
+	input_submit('absenden','0', 'Ã„nderung ausfÃ¼hren');
 	print "\t</tr>\n\n";
 	print "</table>";
 	print "\t</fieldset>\n";
@@ -153,7 +153,7 @@ function validiere_formular() {
 		{
 		$fehler[] = 'Der Buchungsbeginn liegt in der Vergangenheit.';
 	}
-	// große Klammer, um die $aenderungsid rauszufiltern
+	// groÃŸe Klammer, um die $aenderungsid rauszufiltern
 	$sql = "SELECT	DATE_FORMAT(begintime,'%d.%m.%Y %H:%i:%s') as 'Beginn',
 			DATE_FORMAT(endtime,'%d.%m.%Y %H:%i:%s') as 'Ende'
 		FROM studio_buchung
@@ -173,9 +173,9 @@ function validiere_formular() {
 	if (count($result) > 0)
 		{
 		if (count($result) == 1)
-			$fehler[] = 'Buchung nicht möglich, es gibt folgende Buchung:';
+			$fehler[] = 'Buchung nicht mÃ¶glich, es gibt folgende Buchung:';
 			else
-			$fehler[] = 'Buchung nicht möglich, es gibt folgende Buchungen:';
+			$fehler[] = 'Buchung nicht mÃ¶glich, es gibt folgende Buchungen:';
 	 	for ($i=0;$i<count($result);$i++)
 			 {
 			 foreach ($result[$i] as $schluessel => $wert)
@@ -186,23 +186,23 @@ function validiere_formular() {
 	}
 	if (!array_key_exists($_POST['halbestunde'], $halbestunden) || !array_key_exists($_POST['bishalbestunde'], $halbestunden))
 		{
-		$fehler[] = 'Wähle eine gültige Zeit (Minuten).';
+		$fehler[] = 'WÃ¤hle eine gÃ¼ltige Zeit (Minuten).';
 	}
 	if (!array_key_exists($_POST['stunde'], $stunden) || !array_key_exists($_POST['bisstunde'], $stunden))
 		{
-		$fehler[] = 'Wähle eine gültige Zeit (Stunden).';
+		$fehler[] = 'WÃ¤hle eine gÃ¼ltige Zeit (Stunden).';
 	}
 	if (!array_key_exists($_POST['tag'], $tage) || !array_key_exists($_POST['bistag'], $tage))
 		{
-		$fehler[] = 'Wähle einen gültigen Tag.';
+		$fehler[] = 'WÃ¤hle einen gÃ¼ltigen Tag.';
 	}
 	if (!array_key_exists($_POST['monat'], $monate) || !array_key_exists($_POST['bismonat'], $monate))
 		{
-		$fehler[] = 'Wähle einen gültigen Monat.';
+		$fehler[] = 'WÃ¤hle einen gÃ¼ltigen Monat.';
 	}
 	if (!array_key_exists($_POST['jahr'], $jahre) || !array_key_exists($_POST['bisjahr'], $jahre))
 		{
-		$fehler[] = 'Wähle ein gültiges Jahr.';
+		$fehler[] = 'WÃ¤hle ein gÃ¼ltiges Jahr.';
 	}
 	return $fehler;
 }
@@ -243,8 +243,8 @@ function verarbeite_formular()
 		$ok = $stmt -> execute();
 
 		//buchung mailen
-		$buchungstext='Buchungsänderung';
-		if (!$ok) $buchungstext='Die Änderung dieser Buchung hat nicht funktioniert!';
+		$buchungstext='BuchungsÃ¤nderung';
+		if (!$ok) $buchungstext='Die Ã„nderung dieser Buchung hat nicht funktioniert!';
 		buchung_mailen($userid,$buchungsbeginn,$buchungsende,$buchungstext);
 
 		$sql = "SELECT
@@ -263,9 +263,9 @@ function verarbeite_formular()
 		//function pdo_result_out($result,$columnkeys,$caption = 'Tabelle')
 		if ($ok)
 			{
-			$text = 'Diese Buchung wurde geändert:';
+			$text = 'Diese Buchung wurde geÃ¤ndert:';
 		} else {
-			$text = 'Die Änderung dieser Buchung hat nicht funktioniert (bitte Admin informieren):';
+			$text = 'Die Ã„nderung dieser Buchung hat nicht funktioniert (bitte Admin informieren):';
 		}
 		pdo_result_out($result,$columnkeys,$text);
 		print "<p><a href=\"" . MEINEBUCHUNGEN . "\">Meine Buchungen &rarr;</a></p>";

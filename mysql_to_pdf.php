@@ -42,7 +42,7 @@ $rechnungsjahr = $_SESSION['rechnungsjahr'];
 $ctrl = array(
 	'Januar' => '01',
 	'Februar' => '02',
-	'März' => '03',
+	'MÃ¤rz' => '03',
 	'April' => '04',
 	'Mai' => '05',
 	'Juni' => '06',
@@ -53,7 +53,7 @@ $ctrl = array(
 	'November' => '11',
 	'Dezember' => '12'
 );
-// true = Typ-Vergleich von in_array, hier nötig (1 != 01);
+// true = Typ-Vergleich von in_array, hier nÃ¶tig (1 != 01);
 if(in_array($_GET['rm'], $ctrl, true))
 	{
 	$rechnungsmonat = $_GET['rm'];
@@ -74,7 +74,7 @@ $caption = "Buchungen $rechnungsmonat/$rechnungsjahr";
 
 // print $sql;
 $sql = mysql_query($sql);
-// 1 Feld für summe
+// 1 Feld fÃ¼r summe
 $colspan = mysql_num_fields($sql) - 1;
 for ($i = 0; $i < mysql_num_fields($sql); $i++)
 	{
@@ -91,7 +91,7 @@ while ($liste1 = mysql_fetch_array($sql, MYSQL_ASSOC))
 	$summe += $liste1['Betrag'];
 	$i++;
 }
-// $i läuft weiter
+// $i lÃ¤uft weiter
 for ($k = 0; $k < $colspan; $k++)
 	{
 	$data[$i][] = '';

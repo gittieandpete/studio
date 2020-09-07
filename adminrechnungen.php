@@ -19,9 +19,9 @@ if ($_SESSION['login'] == 1 && $_SESSION['admin']%4>1)
 	global $pdo_handle;
 
 	print "<h2>$titel</h2>";
-	print "<h3>Rechnungsübersicht</h3>";
+	print "<h3>RechnungsÃ¼bersicht</h3>";
 	// Abfragen: Buchungen eines Monats, davon die Preise, Anzahl, Summe
-	// ausrechnen per PHP für die Monatsrechung
+	// ausrechnen per PHP fÃ¼r die Monatsrechung
 	$bereich = strtotime('-1 month', time());
 	$rechnungsjahr = date('Y', $bereich);
 	$rechnungsmonate = array(
@@ -95,7 +95,7 @@ if ($_SESSION['login'] == 1 && $_SESSION['admin']%4>1)
 		$summe = 0;
 		if ($result)
 			{
-			// 2 Felder für gesamtdauer und summe
+			// 2 Felder fÃ¼r gesamtdauer und summe
 			$colspan = count($columnkeys) - 2;
 			print "<table class=\"rahmen\">\n";
 			print "<caption>$caption</caption>\n";

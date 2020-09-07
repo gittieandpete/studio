@@ -1,5 +1,5 @@
 <?php
-$titel = "Passwort ändern";
+$titel = "Passwort Ã¤ndern";
 require('includes/functions.php');
 require('includes/definitions.php');
 require('../../../files/c-major/login_web330.php');
@@ -17,7 +17,7 @@ if ($_SESSION['login'] == 0) print "<p>Bitte logge dich ein!</p>";
 if ($_SESSION['login'] == 1)
 	{
 
-	// zugrunde liegende Logik für das Formular
+	// zugrunde liegende Logik fÃ¼r das Formular
 	if (iswech())
 		{
 		if ($formularfehler = validiere_formular())
@@ -32,13 +32,13 @@ if ($_SESSION['login'] == 1)
 	}
 
 }
-// $fehler = '' ist default und wird z.B. durch zeige_formular($formularfehler) überschrieben
+// $fehler = '' ist default und wird z.B. durch zeige_formular($formularfehler) Ã¼berschrieben
 // mit dem Inhalt von $formularfehler
 function zeige_formular($fehler = '')
 	{
 	print "<form method=\"POST\" action=\"" . htmlspecialchars($_SERVER['PHP_SELF']) . "\">\n";
 	print "<fieldset>\n";
-	print "\t<legend>Passwort ändern</legend>\n";
+	print "\t<legend>Passwort Ã¤ndern</legend>\n";
 	if ($fehler) {
 		print "<ul class=\"meldung\">\n";
 		print "\t<li>" . implode("</li>\n\t<li>",$fehler) . "</li>\n";
@@ -54,7 +54,7 @@ function zeige_formular($fehler = '')
 	input_passwort('passwort_control', 'neues Passwort');
 	// Submit $feldname, $colspan, $label kein td
 	print "\t<tr>";
-	input_submit('absenden','1','Passwort ändern');
+	input_submit('absenden','1','Passwort Ã¤ndern');
 	print "\t</tr>\n\n";
 	print "</table>\n\n";
 	input_hidden();
@@ -70,7 +70,7 @@ function zeige_formular($fehler = '')
 	$stmt -> execute();
 	if ($result) $columnkeys = array_keys($stmt->fetch(PDO::FETCH_ASSOC));
 	//function pdo_result_out($result,$columnkeys,$caption = 'Tabelle')
-	$caption='Diese Buchung löschen';
+	$caption='Diese Buchung lÃ¶schen';
 	pdo_result_out($result,$columnkeys,$caption);
 */
 
@@ -96,16 +96,16 @@ function validiere_formular() {
 		}
 	}
 	fehlersuche($user,'Array User Pass');
-	// Sicherstellen, dass der Benutzername gültig ist
-	$fehlermeldung = 'Bitte gib einen gültigen Benutzernamen und ein gültiges Passwort ein.';
+	// Sicherstellen, dass der Benutzername gÃ¼ltig ist
+	$fehlermeldung = 'Bitte gib einen gÃ¼ltigen Benutzernamen und ein gÃ¼ltiges Passwort ein.';
 	if (! array_key_exists($_POST['benutzer'], $user))
 		{
 		$fehler[0] = $fehlermeldung;
 	} elseif ($user[$_POST['benutzer']] != md5($_POST['pass_old']))
-		// Prüfen, ob das Passwort korrekt ist
+		// PrÃ¼fen, ob das Passwort korrekt ist
 		// gespeichertes Passwort = $user[$_POST['benutzer']];
 		{
-		// Fehlermeldung gleich+wird ggf. überschrieben, erlaubt keine Rückschlüsse
+		// Fehlermeldung gleich+wird ggf. Ã¼berschrieben, erlaubt keine RÃ¼ckschlÃ¼sse
 		$fehler[0] = $fehlermeldung;
 	}
 	if ($_POST['passwort'] != $_POST['passwort_control'])
@@ -131,7 +131,7 @@ function verarbeite_formular()
 
 	if ($ok)
 		{
-		print "<p>Hallo " . $_SESSION['vorname'] . ", <br><strong>das Passwort</strong> für " . $user . " <strong>wurde erfolgreich geändert</strong>!</p>\n\n";
+		print "<p>Hallo " . $_SESSION['vorname'] . ", <br><strong>das Passwort</strong> fÃ¼r " . $user . " <strong>wurde erfolgreich geÃ¤ndert</strong>!</p>\n\n";
 	} else {
 		print "Ein Datenbankfehler ist passiert. Bitte versuch es noch mal oder wende dich per Mail an peter.mueller@c-major.de!";
 		zeige_formular();

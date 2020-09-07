@@ -1,5 +1,5 @@
 <?php
-$titel = "Kalender/Übersicht";
+$titel = "Kalender/Ãœbersicht";
 require('includes/functions.php');
 require('includes/definitions.php');
 require('../../../files/c-major/login_web330.php');
@@ -15,7 +15,7 @@ require('includes/datumsangaben.php');
 print "<h2>$titel</h2>";
 
 
-// Verwende die Hilfsfunktionen für Formulare, die in Kapitel 6 definiert wurden
+// Verwende die Hilfsfunktionen fÃ¼r Formulare, die in Kapitel 6 definiert wurden
 require 'formularhelfer.php';
 
 $monate = array(1 => 'Januar',
@@ -44,8 +44,8 @@ if (isset($_POST['_abgeschickt_test'])) {
 		verarbeite_formular(  );
 	}
 } else {
-	// Wurde das Formular nicht übermittelt, zeige das Formular und dann
-	// einen Kalender für den aktuellen Monat an
+	// Wurde das Formular nicht Ã¼bermittelt, zeige das Formular und dann
+	// einen Kalender fÃ¼r den aktuellen Monat an
 	zeige_formular(  );
 	zeige_kalender(date('n'), date('Y'));
 }
@@ -76,11 +76,11 @@ function validiere_formular(  ) {
 	$fehler = array(  );
 
 	if (! array_key_exists($_POST['monat'], $monate)) {
-		$errors[  ] = 'Wählen Sie einen gültigen Monat.';
+		$errors[  ] = 'WÃ¤hlen Sie einen gÃ¼ltigen Monat.';
 	}
 
 	if (! array_key_exists($_POST['jahr'], $jahre)) {
-		$errors[  ] = 'Wählen Sie ein gültiges Jahr.';
+		$errors[  ] = 'WÃ¤hlen Sie ein gÃ¼ltiges Jahr.';
 	}
 
 	return $fehler;
@@ -89,8 +89,8 @@ function validiere_formular(  ) {
 function zeige_formular($fehler = '') {
 	global $monate, $jahre, $aktuelles_jahr;
 
-	// Wenn das Formular übermittelt wurde, lese die Standardwerte aus den
-	// übermittelten Variablen
+	// Wenn das Formular Ã¼bermittelt wurde, lese die Standardwerte aus den
+	// Ã¼bermittelten Variablen
 	if (isset($_POST['_abgeschickt_test'])) {
 		$standardwerte = $_POST;
 	} else {
@@ -125,11 +125,11 @@ function zeige_kalender($monat, $jahr) {
 	hole_buchungen($monat, $jahr);
 	$wochentage = array('So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa');
 
-	// Ermittle den Unix-Zeitstempel für Mitternacht am Monatsersten
+	// Ermittle den Unix-Zeitstempel fÃ¼r Mitternacht am Monatsersten
 	$erster_tag = mktime(0,0,0,$monat, 1, $jahr);
 	// Wie viele Tage hat der Monat?
 	$tage_im_monat = date('t', $erster_tag);
-	// Welcher Wochentag (numerisch) ist der erste Tag des Monats, den benötigen
+	// Welcher Wochentag (numerisch) ist der erste Tag des Monats, den benÃ¶tigen
 	// wir, um die erste Tabellenzelle an die richtige Stelle zu setzen
 	$tag_verschiebung = date('w', $erster_tag) ;
 
@@ -143,14 +143,14 @@ function zeige_kalender($monat, $jahr) {
 	print "</td>\n\t</tr>\n\n";
 	print "\t<tr>\n";
 
-	// Wenn der erste Tag des Monats z.B. Dienstag ist, dann müssen Sie in
-	// der ersten Zeile unter "So" und "Mo" leere Zellen einfügen, damit
-	// die Tabellenzelle für den ersten Tag unter "Di" steht
+	// Wenn der erste Tag des Monats z.B. Dienstag ist, dann mÃ¼ssen Sie in
+	// der ersten Zeile unter "So" und "Mo" leere Zellen einfÃ¼gen, damit
+	// die Tabellenzelle fÃ¼r den ersten Tag unter "Di" steht
 	if ($tag_verschiebung > 0) {
 		for ($i = 0; $i < $tag_verschiebung; $i++) { print "\t<td>&nbsp;</td>\n"; }
 	}
 
-	// Eine Tabellenzelle für jeden Monatstag ausgeben
+	// Eine Tabellenzelle fÃ¼r jeden Monatstag ausgeben
 	for ($tag = 1; $tag <= $tage_im_monat; $tag++ ) {
 		print "\t<td><span class='rechts'>" . $tag . '</span><div class="kalenderzelle">';
 		// hier Termin rein, wenn da
@@ -166,7 +166,7 @@ function zeige_kalender($monat, $jahr) {
 		print "</div></td>\n";
 		$tag_verschiebung++;
 		// Wenn diese Zelle die siebte der Zeile war, beende die
-		// Tabellenzeile und setzte $tages_verschiebung zurück
+		// Tabellenzeile und setzte $tages_verschiebung zurÃ¼ck
 		if ($tag_verschiebung == 7) {
 		    $tag_verschiebung = 0;
 		    print "\t</tr>\n\n";
@@ -178,10 +178,10 @@ function zeige_kalender($monat, $jahr) {
 		}
 	}
 
-	// An diesem Punkt wurde für jeden Tag des Monats eine Tabellenzelle
+	// An diesem Punkt wurde fÃ¼r jeden Tag des Monats eine Tabellenzelle
 	// ausgegeben. Wenn der letzte Tag des Monats kein Samstag ist, muss
 	// die letzte Zeile der Tabelle bis zum Ende der Zeile mit einigen
-	// leeren Zellen aufgefüllt werden
+	// leeren Zellen aufgefÃ¼llt werden
 	if ($tag_verschiebung > 0) {
 		for ($i = $tag_verschiebung; $i < 7; $i++) {
 		    print "\t<td>&nbsp;</td>\n";
