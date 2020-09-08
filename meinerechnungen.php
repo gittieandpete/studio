@@ -10,17 +10,18 @@ session_start();
 session_regenerate_id(true);
 require('includes/head.php');
 require('includes/kopf.php');
-require('includes/navi.php');
-print "<h2>$titel</h2>";
-// siehe kopf.php
+require('includes/navi.php'); ?> 
 
+<h2><?php print $titel;?></h2>
+
+<?php // siehe kopf.php
 logincheck();
 
 if ($_SESSION['login'] == 1)
 	{
-	global $pdo_handle;
-	print "<h3>Rechnungsübersicht</h3>";
-	$user = $_SESSION['benutzer'];
+	global $pdo_handle; ?> 
+	<h3>Rechnungsübersicht</h3>
+	<?php $user = $_SESSION['benutzer'];
 	$userid = $_SESSION['userid'];
 	// Abfragen: Buchungen eines Monats, davon die Preise, Anzahl, Summe
 	// ausrechnen per PHP für die Monatsrechung
@@ -75,41 +76,37 @@ if ($_SESSION['login'] == 1)
 		if ($result)
 			{
 			// 2 Felder für gesamtdauer und summe
-			$colspan = count($columnkeys) - 2;
-			print "<table class=\"rahmen\">\n";
-			print "<caption>$caption</caption>\n";
-			print "\t<tr>\n";
-			for ($i = 0; $i < count($columnkeys); $i++)
-				{
-				print "\t<th>$columnkeys[$i]</th>\n";
-			}
-			print "\t</tr>\n\n";
-
-
-			for ($i=0;$i<count($result);$i++)
-				{
-				print "\t<tr>\n";
-				foreach ($result[$i] as $schluessel => $wert)
-					{
-					print "\t<td>$wert</td>\n";
-				}
-				$gesamtdauer += $result[$i]->sec;
-				$summe += $result[$i]->Betrag;
-				print "\t</tr>\n\n";
-			}
-
-
-			print "\t<tr>\n";
-			print "\t<td colspan=\"$colspan\">Summe:</td>\n";
-			print "\t<td>" . $gesamtdauer/3600 . " Std.</td>\n";
-			print "\t<td>" . sprintf('%1.2f', $summe) . " &euro;</td>\n";
-			print "\t</tr>\n\n";
-			print "</table>\n\n";
-			$gesamtdauer = 0;
+			$colspan = count($columnkeys) - 2; ?> 
+			<table class='rahmen'>
+				<caption><?php print $caption;?></caption>
+				<tr>
+				<?php for ($i = 0; $i < count($columnkeys); $i++)
+					{ ?> 
+					<th><?php print $columnkeys[$i];?></th>
+				<?php } ?> 
+				</tr>
+				<?php for ($i=0;$i<count($result);$i++)
+					{ ?> 
+					<tr>
+					<?php foreach ($result[$i] as $schluessel => $wert)
+						{ ?> 
+						<td><?php print $wert;?></td>
+					<?php  ?> <?php }
+					$gesamtdauer += $result[$i]->sec;
+					$summe += $result[$i]->Betrag; ?> 
+					</tr>
+				<?php } ?> 
+				<tr>
+					<td colspan='<?php print $colspan;?>'>Summe:</td>
+					<td><?php print $gesamtdauer/3600;?> Std.</td>
+					<td><?php print sprintf('%1.2f', $summe);?> €</td>
+				</tr>
+			</table>
+			<?php $gesamtdauer = 0;
 			$summe = 0;
-		} else {
-			print "<p>Keine $caption.</p>\n";
-		}
+		} else { ?> 
+			<p>Keine <?php print $caption;?>.</p>
+		<?php }
 	unset ($result);
 	}
 }

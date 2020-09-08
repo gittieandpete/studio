@@ -10,13 +10,14 @@ session_start();
 session_regenerate_id(true);
 require('includes/head.php');
 require('includes/kopf.php');
-require('includes/navi.php');
+require('includes/navi.php'); ?> 
 
-print "<h2>$titel</h2>";
+<h2><?php print $titel;?></h2>
 
+<p>...ist hier nicht möglich.</p>
+
+<?php 
 // ist momentan deaktiviert
-
-print "<p>...ist hier nicht möglich.</p>";
 
 /*
 

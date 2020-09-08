@@ -1,31 +1,29 @@
 <?php
 
 // Ein Textfeld ausgeben
-function input_text_sklar($elementname, $werte) {
-    print '<input type="text" name="' . $elementname .'" value="';
-    print htmlentities($werte[$elementname]) . '">';
-}
+function input_text_sklar($elementname, $werte) { ?> 
+    <input type='text' name='<?php print $elementname;?>' value='<?php print htmlentities($werte[$elementname]);?>'>
+<?php }
 
 // Einen Absenden-Button ausgeben
-function input_submit_sklar($elementname, $label) {
-    print '<input type="submit" name="' . $elementname .'" value="';
-    print htmlentities($label) .'"/>';
-}
+function input_submit_sklar($elementname, $label) { ?> 
+    <input type='submit' name='<?php print $elementname;?>' value='<?php print htmlentities($label);?>'>
+<?php }
 
 // Ein mehrzeiliges Textfeld ausgeben
-function input_textarea_sklar($elementname, $werte) {
-    print '<textarea name="' . $element_ame .'">';
-    print htmlentities($werte[$elementname]) . '</textarea>';
-}
+function input_textarea_sklar($elementname, $werte) { ?> 
+    <textarea name='<?php print $elementname;?>'><?php print htmlentities($werte[$elementname]);?></textarea>
+<?php }
 
 // Einen Radiobutton oder eine Checkbox ausgeben
-function input_radiocheck_sklar($typ, $elementname, $werte, $elementwert) {
-    print '<input type="' . $typ . '" name="' . $elementname .'" value="' . $elementwert . '" ';
-    if ($elementwert == $werte[$elementname]) {
-        print ' checked="checked"';
-    }
-    print '/>';
-}
+function input_radiocheck_sklar($typ, $elementname, $werte, $elementwert) { ?> 
+    <input type='<?php print $typ;?>' name='<?php print $elementname;?>' value='<?php print $elementwert;?>'
+    <?php if ($elementwert == $werte[$elementname]) { ?>
+        checked='checked'
+    <?php }
+    // schließendes tag input ?>
+    >
+<?php }
 
 // Ein <select>-Menü ausgeben
 function input_select_sklar($elementname, $ausgewaehlt, $optionen, $multiple = false) {

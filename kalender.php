@@ -11,11 +11,11 @@ session_regenerate_id(true);
 require('includes/head.php');
 require('includes/kopf.php');
 require('includes/navi.php');
-require('includes/datumsangaben.php');
-print "<h2>$titel</h2>";
+require('includes/datumsangaben.php'); ?> 
 
+<h2><?php print $titel;?></h2>
 
-// Verwende die Hilfsfunktionen für Formulare, die in Kapitel 6 definiert wurden
+<?php // Verwende die Hilfsfunktionen für Formulare, die in Kapitel 6 definiert wurden
 require 'formularhelfer.php';
 
 $monate = array(1 => 'Januar',
@@ -49,6 +49,10 @@ if (isset($_POST['_abgeschickt_test'])) {
 	zeige_formular(  );
 	zeige_kalender(date('n'), date('Y'));
 }
+
+require('includes/footer.php');
+
+// Beginn functions
 
 function hole_buchungen($monat,$jahr)
 	{
@@ -100,19 +104,19 @@ function zeige_formular($fehler = '') {
 	}
 
 
-	if ($fehler) {
-		print 'Bitte beheben Sie die folgenden Fehler: <ul><li>';
-		print implode('</li><li>',$fehler);
-		print '</li></ul>';
-	}
-
-	print '<form class="kalender" method="POST" action="'.$_SERVER['PHP_SELF'].'">';
-	input_select_sklar('monat', $standardwerte, $monate);
+	if ($fehler) { ?> 
+		Bitte beheben Sie die folgenden Fehler: 
+		<ul>
+			<li><?php print implode("</li>\n\t<li>",$fehler) ?></li>
+		</ul>
+	<?php }  ?> 
+	<form class='kalender' method='POST' action='<?php print $_SERVER['PHP_SELF'];?>'>
+	<?php input_select_sklar('monat', $standardwerte, $monate);
 	input_select_sklar('jahr',  $standardwerte, $jahre);
-	input_submit_sklar('absenden','Kalender anzeigen');
-	print '<input type="hidden" name="_abgeschickt_test" value="1"/>';
-	print '</form>';
-}
+	input_submit_sklar('absenden','Kalender anzeigen'); ?> 
+	<input type="hidden" name="_abgeschickt_test" value="1"/>
+	</form>
+<?php }
 
 function verarbeite_formular(  ) {
 	zeige_kalender($_POST['monat'], $_POST['jahr']);
@@ -133,27 +137,30 @@ function zeige_kalender($monat, $jahr) {
 	// wir, um die erste Tabellenzelle an die richtige Stelle zu setzen
 	$tag_verschiebung = date('w', $erster_tag) ;
 
-	// Den Anfang der Tabelle und die Zeile mit den Namen der Wochentage ausgeben
+	// Den Anfang der Tabelle und die Zeile mit den Namen der Wochentage ausgeben ?> 
 
-	print "<table class='kalender'>\n";
-	print "\t<tr>\n\t<th colspan='7'>" . $monate[$monat] . ' ' . $jahr . "</th>\n\t</tr>\n\n";
-	print "\t<tr>\n";
-	print "\t<td>";
-	print implode("</td>\n\t<td>", $wochentage);
-	print "</td>\n\t</tr>\n\n";
-	print "\t<tr>\n";
-
-	// Wenn der erste Tag des Monats z.B. Dienstag ist, dann müssen Sie in
+	<table class='kalender'>
+		<tr>
+			<th colspan='7'><?php print $monate[$monat];?> <?php print $jahr;?></th>
+		</tr>
+		
+		<tr>
+			<td><?php print implode("</td>\n\t<td>", $wochentage);?></td>
+		</tr>
+		
+		<tr>
+	<?php // Wenn der erste Tag des Monats z.B. Dienstag ist, dann müssen Sie in
 	// der ersten Zeile unter "So" und "Mo" leere Zellen einfügen, damit
 	// die Tabellenzelle für den ersten Tag unter "Di" steht
 	if ($tag_verschiebung > 0) {
-		for ($i = 0; $i < $tag_verschiebung; $i++) { print "\t<td>&nbsp;</td>\n"; }
+		for ($i = 0; $i < $tag_verschiebung; $i++) {  ?> 
+		<td> </td>
+		<?php }
 	}
-
 	// Eine Tabellenzelle für jeden Monatstag ausgeben
-	for ($tag = 1; $tag <= $tage_im_monat; $tag++ ) {
-		print "\t<td><span class='rechts'>" . $tag . '</span><div class="kalenderzelle">';
-		// hier Termin rein, wenn da
+	for ($tag = 1; $tag <= $tage_im_monat; $tag++ ) { ?> 
+		<td><span class='rechts'><?php print $tag;?></span><div class="kalenderzelle">
+		<?php // hier Termin rein, wenn vorhanden
 		for ($i=0;$i<count($result);$i++)
 			{
 			if($tag==date('d',$result[$i]['Beginn']))
@@ -162,19 +169,19 @@ function zeige_kalender($monat, $jahr) {
 				print '(' . $result[$i]['Name'] . ')<br>';
 			}
 
-		}
-		print "</div></td>\n";
-		$tag_verschiebung++;
+		} ?> 
+		</div></td>
+		<?php $tag_verschiebung++;
 		// Wenn diese Zelle die siebte der Zeile war, beende die
 		// Tabellenzeile und setzte $tages_verschiebung zurück
 		if ($tag_verschiebung == 7) {
-		    $tag_verschiebung = 0;
-		    print "\t</tr>\n\n";
-		    // Wenn noch weitere Tage folgen, beginne
+		    $tag_verschiebung = 0; ?> 
+			</tr>
+		    <?php // Wenn noch weitere Tage folgen, beginne
 		    // eine neue Tabellenzeile
-		    if ($tag < $tage_im_monat) {
-		        print "\t<tr>\n";
-		    }
+		    if ($tag < $tage_im_monat) { ?> 
+			<tr>
+		    <?php }
 		}
 	}
 
@@ -183,11 +190,11 @@ function zeige_kalender($monat, $jahr) {
 	// die letzte Zeile der Tabelle bis zum Ende der Zeile mit einigen
 	// leeren Zellen aufgefüllt werden
 	if ($tag_verschiebung > 0) {
-		for ($i = $tag_verschiebung; $i < 7; $i++) {
-		    print "\t<td>&nbsp;</td>\n";
-		}
-		print "\t</tr>\n";
-	}
-	print "</table>\n\n";
-}
+		for ($i = $tag_verschiebung; $i < 7; $i++) { ?> 
+		    <td> </td>
+		<?php } ?> 
+		</tr>
+	<?php } ?> 
+	</table>
+<?php }
 ?>

@@ -11,10 +11,12 @@ session_regenerate_id(true);
 require('includes/head.php');
 require('includes/kopf.php');
 require('includes/navi.php');
-require('includes/datumsangaben.php');
-print "<h2>$titel</h2>";
+require('includes/datumsangaben.php'); ?> 
 
-logincheck();
+<h2><?php print $titel;?></h2>
+
+
+<?php logincheck();
 
 if ($_SESSION['login'] == 1)
 	{
@@ -27,19 +29,26 @@ if ($_SESSION['login'] == 1)
 	}
 	if (iswech())
 		{
-		if ($fehler = validiere_formular())
+		if ($fehler = validiere_loeschformular())
 			{
-			zeige_formular($fehler);
+			zeige_loeschformular($fehler);
 		} else {
-			verarbeite_formular();
+			verarbeite_loeschformular();
 		}
 	} else {
-		zeige_formular();
+		zeige_loeschformular();
 	}
 
 }
 
-function zeige_formular($fehler = '')
+fehlersuche ($_POST);
+fehlersuche ($_SESSION);
+
+require('includes/footer.php');
+
+// begin functions
+
+function zeige_loeschformular($fehler = '')
 	{
 	global $halbestunden, $stunden, $tage, $monate, $jahre;
 	global $monatenumerisch;
@@ -58,28 +67,28 @@ function zeige_formular($fehler = '')
 	$stmt -> execute();
 	if ($result) $columnkeys = array_keys($stmt->fetch(PDO::FETCH_ASSOC));
 
-	if ($fehler) {
-		print '<ul><li>';
-		print implode('</li><li>',$fehler);
-		print '</li></ul>';
-	}
-	print "<form method=\"POST\" action=\"" . htmlspecialchars($_SERVER['PHP_SELF']) . "\">\n";
-	print "\t<fieldset>\n";
-	print "\t<legend>Löschung anzeigen</legend>\n";
-	$caption='Diese Buchung löschen';
-	pdo_result_out($result,$columnkeys,$caption);
-	print "<table>\n\n";
-	print "\t<tr>\n";
-	// $feldname, $colspan, $label
-	input_submit('absenden','0', 'Löschen');
-	print "\t</tr>\n\n";
-	print "</table>";
-	print "\t</fieldset>\n";
-	input_hidden();
-	print '</form>';
-}
+	if ($fehler) { ?> 
+		<ul>
+			<li><?php print implode("</li>\n\t<li>",$fehler);?></li>
+		</ul>
+	<?php } ?> 
+	<form method='POST' action='<?php print htmlspecialchars($_SERVER['PHP_SELF']);?>'>
+		<fieldset>
+		<legend>Löschung anzeigen</legend>
+	<?php $caption='Diese Buchung löschen';
+	pdo_result_out($result,$columnkeys,$caption); ?> 
+	<table>
+		<tr>
+	<?php // $feldname, $colspan, $label
+	input_submit('absenden','0', 'Löschen'); ?> 
+		</tr>
+	</table>
+	</fieldset>
+	<?php input_hidden(); ?> 
+	</form>
+<?php }
 
-function validiere_formular()
+function validiere_loeschformular()
 	{
 	global $loeschungsid, $userid, $now;
 	global $pdo_handle;
@@ -112,7 +121,7 @@ function validiere_formular()
 	return $fehler;
 }
 
-function verarbeite_formular()
+function verarbeite_loeschformular()
 	{
 	global $loeschungsid;
 	global $pdo_handle;
@@ -148,17 +157,13 @@ function verarbeite_formular()
 		$ok = $stmt -> execute();
 		if ($ok)
 			{
-			$_SESSION['loeschung'] = 'vollzogen';
-			print "<p>Die Buchung wurde gelöscht.</p>";
-			print "<p><a href=\"" . MEINEBUCHUNGEN . "\">Meine Buchungen &rarr;</a></p>";
-		} else {
-			print "<p>Die Löschung hat nicht funktioniert.</p>";
-		}
+			$_SESSION['loeschung'] = 'vollzogen'; ?> 
+			<p>Die Buchung wurde gelöscht.</p>
+			<p><a href='<?php print MEINEBUCHUNGEN;?>'>Meine Buchungen &rarr;</a></p>
+		<?php } else { ?> 
+			<p>Die Löschung hat nicht funktioniert.</p>
+		<?php }
 	}
 }
 
-fehlersuche ($_POST);
-fehlersuche ($_SESSION);
-
-require('includes/footer.php');
 ?>

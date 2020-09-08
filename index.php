@@ -9,10 +9,11 @@ connect();
 session_start();
 session_regenerate_id(true);
 require('includes/head.php');
-require('includes/kopf.php');
+require('includes/kopf.php'); ?> 
 
-print "<h2>$titel</h2>";
-// gesetzte Variablen (session+post) siehe kopf.php
+<h2><?php print $titel;?></h2>
+
+<?php // gesetzte Variablen (session+post) siehe kopf.php
 // siehe functions.php
 if (!isset($_SESSION['sleep']))
 	{
@@ -45,6 +46,11 @@ if ($_SESSION['login'] == 1)
 	require('includes/navi.php');
 	print "<p>Hallo " . $_SESSION['vorname']. "!</p>\n\n";
 }
+
+
+fehlersuche ($_POST);
+fehlersuche ($_SESSION);
+require('includes/footer.php');
 
 // $fehler = '' ist default und wird z.B. durch zeige_loginformular($formularfehler) überschrieben mit dem Inhalt von $formularfehler
 function zeige_loginformular($fehler = '')
@@ -174,7 +180,4 @@ function verarbeite_loginformular()
 	// print "<p>Der Login war erfolgreich! Hallo " . htmlentities($vorname) . ' ' . htmlentities($name) . " (Mail: " . htmlentities($user) . "). </p>\n\n";
 }
 
-fehlersuche ($_POST);
-fehlersuche ($_SESSION);
-require('includes/footer.php');
 ?>

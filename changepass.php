@@ -10,10 +10,11 @@ session_start();
 session_regenerate_id(true);
 require('includes/head.php');
 require('includes/kopf.php');
-require('includes/navi.php');
-print "<h2>$titel</h2>";
+require('includes/navi.php'); ?> 
 
-logincheck();
+<h2><?php print $titel;?></h2>
+
+<?php logincheck();
 
 if ($_SESSION['login'] == 1)
 	{
@@ -33,47 +34,42 @@ if ($_SESSION['login'] == 1)
 	}
 
 }
-// $fehler = '' ist default und wird z.B. durch zeige_formular($formularfehler) überschrieben
-// mit dem Inhalt von $formularfehler
+
+fehlersuche ($_POST);
+fehlersuche ($_SESSION);
+
+require('includes/footer.php');
+
+// Beginn functions
+
+// $fehler = '' ist default und wird z.B. durch zeige_formular($formularfehler) überschrieben mit dem Inhalt von $formularfehler
 function zeige_formular($fehler = '')
-	{
-	print "<form method=\"POST\" action=\"" . htmlspecialchars($_SERVER['PHP_SELF']) . "\">\n";
-	print "<fieldset>\n";
-	print "\t<legend>Passwort ändern</legend>\n";
-	if ($fehler) {
-		print "<ul class=\"meldung\">\n";
-		print "\t<li>" . implode("</li>\n\t<li>",$fehler) . "</li>\n";
-		print "</ul>\n\n";
-	}
-	print "<table>\n";
-	// Benutzername
+	{ ?> 
+	<form method='POST' action='<?php print htmlspecialchars($_SERVER['PHP_SELF']);?>'>
+		<fieldset>
+		<legend>Passwort ändern</legend>
+	<?php if ($fehler) { ?> 
+		<ul class='meldung'>
+			<li><?php print implode("</li>\n\t<li>",$fehler);?></li>
+		</ul>
+	<?php }  ?> 
+	<table>
+	<?php // Benutzername
 	input_text('benutzer', 'Mailadresse');
 	// altes Passwort
 	input_passwort('pass_old', 'altes Passwort');
 	// Passwort
 	input_passwort('passwort', 'neues Passwort');
-	input_passwort('passwort_control', 'neues Passwort');
-	// Submit $feldname, $colspan, $label kein td
-	print "\t<tr>";
-	input_submit('absenden','1','Passwort ändern');
-	print "\t</tr>\n\n";
-	print "</table>\n\n";
-	input_hidden();
-	print "</fieldset>\n";
-	print "</form>\n\n";
-}
-
-/*
-	$stmt = $pdo_handle -> prepare($sql);
-	$stmt -> bindParam(':loeschungsid', $loeschungsid);
-	$stmt -> execute();
-	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	$stmt -> execute();
-	if ($result) $columnkeys = array_keys($stmt->fetch(PDO::FETCH_ASSOC));
-	//function pdo_result_out($result,$columnkeys,$caption = 'Tabelle')
-	$caption='Diese Buchung löschen';
-	pdo_result_out($result,$columnkeys,$caption);
-*/
+	input_passwort('passwort_control', 'neues Passwort'); ?> 
+		<tr>
+	<?php // Submit $feldname, $colspan, $label, input_submit liefert <td></td>
+	input_submit('absenden','1','Passwort ändern'); ?> 
+		</tr>
+	</table>
+	<?php input_hidden(); ?> 
+	</fieldset>
+	</form>
+<?php }
 
 function validiere_formular() {
 	global $pdo_handle;
@@ -131,16 +127,12 @@ function verarbeite_formular()
 	$ok = $stmt -> execute();
 
 	if ($ok)
-		{
-		print "<p>Hallo " . $_SESSION['vorname'] . ", <br><strong>das Passwort</strong> für " . $user . " <strong>wurde erfolgreich geändert</strong>!</p>\n\n";
-	} else {
-		print "Ein Datenbankfehler ist passiert. Bitte versuch es noch mal oder wende dich per Mail an peter.mueller@c-major.de!";
-		zeige_formular();
+		{ ?> 
+		<p>Hallo <?php print $_SESSION['vorname'];?>, <br> <strong>das Passwort</strong> für <?php print $user;?> <strong>wurde erfolgreich geändert</strong>!</p>
+	<?php } else {  ?> 
+		<p>Ein Fehler ist passiert (changepass.php). Bitte versuch es noch mal oder wende dich per Mail an <a href="mailto:peter.mueller@c-major.de">peter.mueller@c-major.de</a>.</p>
+		<?php zeige_formular();
 	}
 }
 
-fehlersuche ($_POST);
-fehlersuche ($_SESSION);
-
-require('includes/footer.php');
 ?>

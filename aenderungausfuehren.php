@@ -11,9 +11,11 @@ session_regenerate_id(true);
 require('includes/head.php');
 require('includes/kopf.php');
 require('includes/navi.php');
-require('includes/datumsangaben.php');
-print "<h2>$titel</h2>";
-logincheck();
+require('includes/datumsangaben.php'); ?> 
+
+<h2><?php print $titel;?></h2>
+
+<?php logincheck();
 if ($_SESSION['login'] == 1)
 	{
 	if (!isset($_SESSION['aenderung']))
@@ -88,40 +90,53 @@ function zeige_formular($fehler = '')
 		'bismonat' => date('n'),
 		'bisjahr' => date('Y')
 	);
-	if ($fehler) {
-		print '<ul><li>';
-		print implode('</li><li>',$fehler);
-		print '</li></ul>';
-	}
-	print "<form method=\"POST\" action=\"" . htmlspecialchars($_SERVER['PHP_SELF']) . "\">\n";
-	print "\t<fieldset>\n";
-	print "\t<legend>Änderung ausführen</legend>\n";
-	print "<table>";
-	print "<tr><td colspan=\"5\">Buchungsbeginn:</td></tr>\n";
-	print "<tr><td>";
-	input_select('tag', $timedefaults, $tage);
+	if ($fehler) { ?> 
+		<ul>
+			<li><?php print implode("</li>\n\t<li>",$fehler);?></li>
+		</ul>
+	<?php }  ?> 
+	<form method='POST' action='<?php print htmlspecialchars($_SERVER['PHP_SELF']);?>'>
+	<fieldset>
+	<legend>Änderung ausführen</legend>
+	<table>
+		<tr>
+			<td colspan='5'>Buchungsbeginn:</td>
+		</tr>
+	
+		<tr>
+			<td>
+	<?php input_select('tag', $timedefaults, $tage);
 	input_select('monat', $timedefaults, $monate);
 	input_select('jahr',  $timedefaults, $jahre);
 	input_select('stunde', $timedefaults, $stunden);
-	input_select('halbestunde', $timedefaults, $halbestunden);
-	print "</td></tr>";
-	print "<tr><td colspan=\"5\">Buchungsende:</td></tr>\n";
-	print "<tr><td>";
-	input_select('bistag', $timedefaults, $tage);
+	input_select('halbestunde', $timedefaults, $halbestunden); ?> 
+			</td>
+		</tr>
+	
+		<tr>
+			<td colspan='5'>Buchungsende:</td>
+		</tr>
+		
+		<tr>
+			<td>
+	<?php input_select('bistag', $timedefaults, $tage);
 	input_select('bismonat', $timedefaults, $monate);
 	input_select('bisjahr',  $timedefaults, $jahre);
 	input_select('bisstunde', $timedefaults, $stunden);
-	input_select('bishalbestunde', $timedefaults, $halbestunden);
-	print "</td></tr>";
-	print "\t<tr>\n";
-	// $feldname, $colspan, $label
-	input_submit('absenden','0', 'Änderung ausführen');
-	print "\t</tr>\n\n";
-	print "</table>";
-	print "\t</fieldset>\n";
-	input_hidden();
-	print '</form>';
-}
+	input_select('bishalbestunde', $timedefaults, $halbestunden); ?> 
+			</td>
+		</tr>
+		
+		<tr>
+	<?php // $feldname, $colspan, $label
+	// input_submit liefert <td></td>
+	input_submit('absenden','0', 'Änderung ausführen'); ?> 
+		</tr>
+	</table>
+	</fieldset>
+	<?php input_hidden();  ?> 
+	</form>
+<?php }
 
 function validiere_formular() {
 	global $halbestunden, $stunden, $tage, $monate, $jahre;

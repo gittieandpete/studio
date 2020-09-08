@@ -49,29 +49,35 @@ print "<p>Das Default-Passwort ist '123'.</p>";
 print '<p>User löschen geht direkt in der Datenbank.</p>';
 }
 
+fehlersuche ($_POST, 'table');
+fehlersuche ($_SESSION, 'table');
+
+require('includes/footer.php');
+
+
 // Beginn functions.
 function zeige_formular($fehler = '')
-	{
-	print "<form method=\"POST\" action=\"" . htmlspecialchars($_SERVER['PHP_SELF']) . "\">\n";
-	print "<fieldset>\n";
-	print "\t<legend>Neue User eintragen</legend>\n";
-	if ($fehler) {
-		print "<ul class=\"meldung\">\n";
-		print "\t<li>" . implode("</li>\n\t<li>",$fehler) . "</li>\n";
-		print "</ul>\n\n";
-	}
-	// input_text braucht eine Rahmen-Tabelle
-	print "<table>\n\n";
-	input_text('user', 'Mailadresse');
-	input_text('name', 'Name');
-	input_text('vorname', 'Vorname');
-	input_text('userpreis', 'Preis pro Stunde');
-	input_submit('neueruser','2','Neuen User anlegen');
-	input_hidden();
-	print "</table>\n\n";
-	print "</fieldset>\n";
-	print "</form>\n\n";
-	fehlersuche ($_POST);
+	{ ?> 
+	<form method='POST' action='<?php print htmlspecialchars($_SERVER['PHP_SELF']);?>'>
+		<fieldset>
+			<legend>Neue User eintragen</legend>
+			<?php if ($fehler) { ?> 
+				<ul class='meldung'>
+				<li><?php print implode("</li>\n\t<li>",$fehler);?></li>
+				</ul>
+			<?php }
+		// input_text braucht eine Rahmen-Tabelle ?> 
+			<table>
+				<?php input_text('user', 'Mailadresse');
+				input_text('name', 'Name');
+				input_text('vorname', 'Vorname');
+				input_text('userpreis', 'Preis pro Stunde');
+				input_submit('neueruser','2','Neuen User anlegen');
+				input_hidden(); ?> 
+			</table>
+		</fieldset>
+	</form>
+	<?php fehlersuche ($_POST);
 	fehlersuche($fehler);
 }
 
@@ -143,14 +149,11 @@ function verarbeite_formular()
 	$stmt = $pdo_handle -> prepare($sql);
 	$ok = $stmt -> execute();
 	if ($ok)
-		{
-		print "<p>Der neue User wurde eingetragen!</p>";
-	} else {
-		print "<p>hat nicht funktioniert!</p>";
-	}
+		{ ?> 
+		<p>Der neue User wurde eingetragen!</p>
+	<?php } else {  ?> 
+		<p>hat nicht funktioniert!</p>
+	<?php }
 }
-fehlersuche ($_POST, 'table');
-fehlersuche ($_SESSION, 'table');
 
-require('includes/footer.php');
 ?>

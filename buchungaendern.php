@@ -10,11 +10,11 @@ session_start();
 session_regenerate_id(true);
 require('includes/head.php');
 require('includes/kopf.php');
-require('includes/navi.php');
+require('includes/navi.php'); ?> 
 
-print "<h2>$titel</h2>";
+<h2><?php print $titel;?></h2>
 
-// siehe kopf.php
+<?php // siehe kopf.php
 logincheck();
 if ($_SESSION['login'] == 1)
 	{

@@ -12,17 +12,18 @@ require('includes/head.php');
 require('includes/kopf.php');
 require('includes/navi.php');
 
-global $pdo_handle;
+global $pdo_handle; ?> 
 
-print "<h2>$titel</h2>";
-// siehe kopf.php
+<h2><?php print $titel;?></h2>
+
+<?php // siehe kopf.php
 
 logincheck();
 
 if ($_SESSION['login'] == 1)
-	{
-	print "<h3>Buchungsübersicht</h3>";
-	$user = $_SESSION['benutzer'];
+	{ ?> 
+	<h3>Buchungsübersicht</h3>
+	<?php $user = $_SESSION['benutzer'];
 	$userid = $_SESSION['userid'];
 	fehlersuche($userid, 'Userid');
 	$now = time();
@@ -49,9 +50,9 @@ if ($_SESSION['login'] == 1)
 	if ($result)
 		{
 		pdo_result_out($result,$columnkeys,$caption);
-	} else {
-		print "<p>Keine $caption.</p>\n";
-	}
+	} else { ?> 
+		<p>Keine <?php print $caption;?>.</p>
+	<?php }
 	unset ($result);
 }
 fehlersuche ($_POST);

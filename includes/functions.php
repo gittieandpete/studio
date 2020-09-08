@@ -18,7 +18,11 @@ function buchung_mailen($userid,$buchungsbeginn,$buchungsende,$text='Buchung')
 	$mailtext = $text . strftime(' von %A, %x, %H:%M Uhr ',$buchungsbeginn) . strftime('bis %A, %x, %H:%M Uhr',$buchungsende) . ", $vorname $name.";
 	// abschicken
 	fehlersuche("Header: $header<br>\nAn: " . MAILADRESSE . "<br>\nBetreff: $strSubject<br>\nText: $mailtext<br>",'Mailtext');
-	mail(MAILADRESSE, $strSubject, $mailtext, $header) or die ("<p>Die Mail konnte nicht versendet werden. </p>");
+	$sent = mail(MAILADRESSE, $strSubject, $mailtext, $header);
+	if (!$sent)
+		{ ?> 
+		<p>Die Mail konnte nicht versendet werden.</p>
+	<?php }
 }
 
 
@@ -36,11 +40,16 @@ function connect ()
 }
 
 function fehlersuche($var,$info='Debug')
-    { ?> 
+    { 
+    // Fehlersuche an oder aus, 1 oder 0
+    $fehlersuche = 0;
+    if($fehlersuche)
+		{ ?> 
      <pre class='fehlersuche'>
      <span><?php print $info ?>: <?php print_r($var); ?></span>
      </pre>
-<?php }
+	<?php }
+}
 
 function menue ($adresse,$ankertext,$linktitel='Link')
     {

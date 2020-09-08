@@ -3,9 +3,7 @@
 <nav id="linkliste">
 <ul class="menu">
 
-<?php
-
-	//function menue ($adresse,$ankertext,$linktitel='Link')
+<?php //function menue ($adresse,$ankertext,$linktitel='Link')
 	menue (LOGIN, 'Login', 'Startseite');
 	menue (NEUBUCHEN, 'Neu buchen','Neue Buchung anlegen');
 	menue (MEINEBUCHUNGEN, 'Meine Buchungen', 'Übersicht über meine zukünftigen Buchungen');

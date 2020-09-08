@@ -10,10 +10,11 @@ session_start();
 session_regenerate_id(true);
 require('includes/head.php');
 require('includes/kopf.php');
-require('includes/navi.php');
-print "<h2>$titel</h2>";
+require('includes/navi.php'); ?> 
 
-logincheck();
+<h2><?php print $titel;?></h2>
+
+<?php logincheck();
 
 if ($_SESSION['login'] == 1)
 	{
@@ -47,44 +48,49 @@ if ($_SESSION['buchung'] != 1)
 
 if (iswech())
 	{
-	if ($fehler = validiere_formular())
+	if ($fehler = validiere_buchungsformular())
 		{
-		zeige_formular($fehler);
+		zeige_buchungsformular($fehler);
 	} else {
-		verarbeite_formular();
+		verarbeite_buchungsformular();
 	}
 } else {
-	zeige_formular();
+	zeige_buchungsformular();
 }
 
-function zeige_formular($fehler = '')
+} // logincheck
+
+fehlersuche ($_POST);
+fehlersuche ($_SESSION);
+require('includes/footer.php');
+
+// Functions for the formula
+function zeige_buchungsformular($fehler='')
 	{
 	global $wochentag, $anfang, $biswochentag, $ende, $anzahlstunden, $anzahlminuten;
-	if ($fehler) {
-		print '<ul><li>';
-		print implode('</li><li>',$fehler);
-		print '</li></ul>';
-	}
-	print "<form method=\"POST\" action=\"" . htmlspecialchars($_SERVER['PHP_SELF']) . "\">\n";
-	print "\t<fieldset>\n";
-	print "\t<legend>Buchung ausführen</legend>\n";
-	print <<<HTML
+	if ($fehler) { ?> 
+		<ul>
+			<li><?php print implode("</li>\n\t<li>",$fehler);?></li>
+		</ul>
+	<?php }  ?> 
+	<form method='POST' action='<?php print htmlspecialchars($_SERVER['PHP_SELF']);?>'>
+		<fieldset>
+		<legend>Buchung ausführen</legend>
     <table>
-        <tr><td>Buchungsbeginn</td><td>$wochentag, $anfang</td></tr>
-        <tr><td>Buchungsende</td><td>$biswochentag, $ende</td></tr>
-        <tr><td>Dauer</td><td>$anzahlstunden:$anzahlminuten Stunden</td></tr>
-HTML;
-	print "\t<tr>\n";
-	// $feldname, $colspan, $label
-	input_submit('ok','1','ok');
-	print "\t</tr>\n\n";
-	print "</table>";
-	print "\t</fieldset>\n";
-	input_hidden();
-	print '</form>';
-}
+        <tr><td>Buchungsbeginn</td><td><?php print $wochentag;?>, <?php print $anfang;?></td></tr>
+        <tr><td>Buchungsende</td><td><?php print $biswochentag;?>, <?php print $ende;?></td></tr>
+        <tr><td>Dauer</td><td><?php print $anzahlstunden;?>:<?php print $anzahlminuten;?> Stunden</td></tr>
+		<tr>
+	<?php // $feldname, $colspan, $label
+	input_submit('ok','1','ok'); ?> 
+		</tr>
+	</table>
+	</fieldset>
+	<?php input_hidden(); ?> 
+	</form>
+<?php }
 
-function validiere_formular()
+function validiere_buchungsformular()
 	{
 	$fehler = array();
 	$fehler = validiere_post($_POST,$fehler);
@@ -111,7 +117,7 @@ function validiere_formular()
 	return $fehler;
 }
 
-function verarbeite_formular()
+function verarbeite_buchungsformular()
 	{
 	global $wochentag, $anfang, $biswochentag, $ende, $anzahlstunden, $anzahlminuten;
 	global $pdo_handle;
@@ -134,7 +140,6 @@ function verarbeite_formular()
 		$ok = $stmt -> execute();
 		fehlersuche($ok,'$stmt execute?');
 		$_SESSION['buchung'] = 1;
-		// buchung_mailen($userid,$buchungsbeginn,$buchungsende,$text='Buchung')
 		buchung_mailen($userid,$buchungsbeginn,$buchungsende);
 
 		unset($_SESSION['halbestunde']);
@@ -152,29 +157,22 @@ function verarbeite_formular()
 		unset($_SESSION['wochentag']);
 		unset($_SESSION['biswochentag']);
 		if ($ok)
-			{
-			print <<<HTML
+			{ ?> 
 			<table>
-				<tr><td>Buchungsbeginn</td><td>$wochentag, $anfang</td></tr>
-				<tr><td>Buchungsende</td><td>$biswochentag, $ende</td></tr>
-				<tr><td>Dauer</td><td>$anzahlstunden:$anzahlminuten Stunden</td></tr>
+				<tr><td>Buchungsbeginn</td><td><?php print $wochentag;?>, <?php print $anfang;?></td></tr>
+				<tr><td>Buchungsende</td><td><?php print $biswochentag;?>, <?php print $ende;?></td></tr>
+				<tr><td>Dauer</td><td><?php print $anzahlstunden;?>:<?php print $anzahlminuten;?> Stunden</td></tr>
 			</table>
-HTML;
-			print "<p>Die Buchung wurde ausgeführt.</p>";
-		} else {
-			print "<p>Es gab einen Fehler beim Eintragen in die Datenbank.</p>";
-		}
-	}
-	print "<ul>";
-	print "<li><a href=\"" . NEUBUCHEN . "\">Neu buchen</a></li>";
-	print "<li><a href=\"" . MEINEBUCHUNGEN . "\">Meine Buchungen</a></li>";
-	print "<li><a href=\"" . BUCHUNGAENDERN . "\">Buchung ändern</a></li>";
-	print "</ul>";
-}
+			<p>Die Buchung wurde ausgeführt.</p>
+		<?php } else { ?> 
+			<p>Es gab einen Fehler beim Eintragen in die Datenbank.</p>
+		<?php }
+	} ?> 
+	<ul>
+		<li><a href='<?php print NEUBUCHEN;?>'>Neu buchen</a></li>
+		<li><a href='<?php print MEINEBUCHUNGEN;?>'>Meine Buchungen</a></li>
+		<li><a href='<?php print BUCHUNGAENDERN;?>'>Buchung ändern</a></li>
+	</ul>
+<?php }
 
-} // logincheck
-
-fehlersuche ($_POST);
-fehlersuche ($_SESSION);
-require('includes/footer.php');
 ?>

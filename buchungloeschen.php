@@ -10,9 +10,11 @@ session_start();
 session_regenerate_id(true);
 require('includes/head.php');
 require('includes/kopf.php');
-require('includes/navi.php');
-print "<h2>$titel</h2>";
-$idwerte = array();
+require('includes/navi.php'); ?> 
+
+<h2><?php print $titel;?></h2>
+
+<?php $idwerte = array();
 $now = time();
 // siehe kopf.php
 logincheck();

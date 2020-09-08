@@ -11,27 +11,35 @@ session_regenerate_id(true);
 require('includes/head.php');
 require('includes/kopf.php');
 require('includes/navi.php');
-require('includes/datumsangaben.php');
-print "<h2>$titel</h2>";
+require('includes/datumsangaben.php'); ?> 
 
-logincheck();
+<h2><?php print $titel;?></h2>
+
+<?php logincheck();
 
 if ($_SESSION['login'] == 1)
 	{
 	if (iswech())
 		{
-		if ($fehler = validiere_formular())
+		if ($fehler = validiere_neubuchenformular())
 			{
-			zeige_formular($fehler);
+			zeige_neubuchenformular($fehler);
 		} else {
-			verarbeite_formular();
+			verarbeite_neubuchenformular();
 		}
 	} else {
-		zeige_formular();
+		zeige_neubuchenformular();
 	}
 }
 
-function zeige_formular($fehler = '')
+fehlersuche ($_POST);
+fehlersuche ($_SESSION);
+
+require('includes/footer.php');
+
+// begin functions
+
+function zeige_neubuchenformular($fehler = '')
 	{
 	global $halbestunden, $stunden, $tage, $monate, $jahre;
 	global $monatenumerisch;
@@ -50,41 +58,53 @@ function zeige_formular($fehler = '')
 		'bismonat' => date('n'),
 		'bisjahr' => date('Y')
 	);
-	if ($fehler) {
-		print '<ul><li>';
-		print implode('</li><li>',$fehler);
-		print '</li></ul>';
-	}
-	print "<form method=\"POST\" action=\"" . htmlspecialchars($_SERVER['PHP_SELF']) . "\">\n";
-	print "\t<fieldset>\n";
-	print "\t<legend>Neu buchen</legend>\n";
-	print "<table>";
-	print "<tr><td colspan=\"5\">Buchungsbeginn:</td></tr>\n";
-	print "<tr><td>";
-	input_select('tag', $timedefaults, $tage);
+	if ($fehler) { ?> 
+		<ul>
+			<li><?php print implode("</li>\t\n<li>",$fehler);?></li>
+		</ul>
+	<?php } ?> 
+	<form method='POST' action='<?php print htmlspecialchars($_SERVER['PHP_SELF']);?>'>
+		<fieldset>
+		<legend>Neu buchen</legend>
+			<table>
+				<tr>
+					<td colspan='5'>Buchungsbeginn:</td>
+				</tr>
+	
+				<tr>
+					<td>
+	<?php input_select('tag', $timedefaults, $tage);
 	input_select('monat', $timedefaults, $monate);
 	input_select('jahr',  $timedefaults, $jahre);
 	input_select('stunde', $timedefaults, $stunden);
-	input_select('halbestunde', $timedefaults, $halbestunden);
-	print "</td></tr>";
-	print "<tr><td colspan=\"5\">Buchungsende:</td></tr>\n";
-	print "<tr><td>";
-	input_select('bistag', $timedefaults, $tage);
+	input_select('halbestunde', $timedefaults, $halbestunden); ?> 
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan='5'>Buchungsende:</td>
+				</tr>
+		
+				<tr>
+					<td>
+	<?php input_select('bistag', $timedefaults, $tage);
 	input_select('bismonat', $timedefaults, $monate);
 	input_select('bisjahr',  $timedefaults, $jahre);
 	input_select('bisstunde', $timedefaults, $stunden);
-	input_select('bishalbestunde', $timedefaults, $halbestunden);
-	print "</td></tr>";
-	print "\t<tr>\n";
-	input_submit('absenden','0','übernehmen');
-	print "\t</tr>\n\n";
-	print "</table>";
-	print "\t</fieldset>\n";
-	input_hidden();
-	print '</form>';
-}
+	input_select('bishalbestunde', $timedefaults, $halbestunden); ?> 
+					</td>
+				</tr>
 
-function validiere_formular() {
+				<tr>
+	<?php input_submit('absenden','0','übernehmen'); ?> 
+				</tr>
+			</table>
+		</fieldset>
+	<?php input_hidden(); ?> 
+	</form>
+<?php }
+
+function validiere_neubuchenformular() {
 	global $halbestunden, $stunden, $tage, $monate, $jahre;
 	global $monatenumerisch;
 	global $pdo_handle;
@@ -169,7 +189,7 @@ or buchungsbeginn <= dbzeitbeginn AND buchungsende >= dbzeitende
 	return $fehler;
 }
 
-function verarbeite_formular()
+function verarbeite_neubuchenformular()
 	{
 	global $halbestunden, $stunden, $tage, $monate, $jahre;
 	global $monatenumerisch;
@@ -203,11 +223,8 @@ function verarbeite_formular()
 	$_SESSION['buchungsende'] = $buchungsende;
 	$_SESSION['wochentag'] = $wochentag;
 	$_SESSION['biswochentag'] = $biswochentag;
-	$_SESSION['buchung'] = $buchung;
-	print "<p><a href=\"" . BUCHUNGZEIGEN . "\">Weiter &rarr; (Buchung zeigen)</a></p>";
-}
-fehlersuche ($_POST);
-fehlersuche ($_SESSION);
+	$_SESSION['buchung'] = $buchung; ?> 
+	<p><a href='<?php print BUCHUNGZEIGEN;?>'>Weiter &rarr; (Buchung zeigen)</a></p>
+<?php }
 
-require('includes/footer.php');
 ?>

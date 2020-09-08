@@ -10,10 +10,11 @@ session_start();
 session_regenerate_id(true);
 require('includes/head.php');
 require('includes/kopf.php');
-// require('includes/navi.php');
-print "<h2>$titel</h2>";
+// require('includes/navi.php'); ?> 
 
-if (!isset($_SESSION['passwort']) || !isset($_SESSION['sleep']))
+<h2><?php print $titel;?></h2>
+
+<?php if (!isset($_SESSION['passwort']) || !isset($_SESSION['sleep']))
 	{
 	$_SESSION['passwort'] = 'vergessen';
 	$_SESSION['sleep']=0.5;
@@ -34,30 +35,37 @@ if (iswech())
 	zeige_formular();
 }
 
+fehlersuche ($_POST,'POST');
+fehlersuche ($_SESSION,'Session');
+
+require('includes/footer.php');
+
+// begin functions
+
 // $fehler = '' ist default und wird z.B. durch zeige_formular($formularfehler) überschrieben
 // mit dem Inhalt von $formularfehler
 function zeige_formular($fehler = '')
-	{
-	print "<form method=\"POST\" action=\"" . htmlspecialchars($_SERVER['PHP_SELF']) . "\">\n";
-	print "<fieldset>\n";
-	print "\t<legend>Passwort vergessen</legend>\n";
-	if ($fehler) {
-		print "<ul class=\"meldung\">\n";
-		print "\t<li>" . implode("</li>\n\t<li>",$fehler) . "</li>\n";
-		print "</ul>\n\n";
-	}
-	print "<table>\n";
-	// Benutzername
-	input_text('user', 'Mailadresse');
-	// Submit
-	print "\t<tr>\n";
-	input_submit('absenden', '1', 'Passwort anfordern');
-	print "\t</tr>\n\n";
-	print "</table>\n\n";
-	input_hidden();
-	print "</fieldset>\n";
-	print "</form>\n\n";
-}
+	{ ?> 
+	<form method='POST' action='<?php print htmlspecialchars($_SERVER['PHP_SELF']);?>'>
+		<fieldset>
+			<legend>Passwort vergessen</legend>
+	<?php if ($fehler) { ?> 
+		<ul class='meldung'>
+			<li>'<?php print implode("</li>\n\t<li>",$fehler);?>'</li>
+		</ul>
+	<?php } ?> 
+	<table>
+	<?php // Benutzername
+	input_text('user', 'Mailadresse'); ?> 
+		<tr>
+	<?php // Submit
+	input_submit('absenden', '1', 'Passwort anfordern'); ?> 
+		</tr>
+	</table>
+	<?php input_hidden(); ?> 
+	</fieldset>
+	</form>
+<?php }
 
 function validiere_formular()
 	{
@@ -153,19 +161,15 @@ Text: $mailtext<br>",'Mailtext');
 		$ok = $stmt -> execute();
 
 		if ($ok)
-			{
-			print "<p class=\"meldung\">Ein neues Passwort ist generiert worden und per Mail unterwegs die angegebene Adresse.</p>\n\n";
-			$_SESSION['passwort'] = 'gemailt';
-		} else {
-			print "<p class=\"meldung\">Ein Fehler ist passiert. Bitte probiere es nochmals oder wende dich per Mail an peter.mueller@c-major.de!</p>\n\n";
-			zeige_formular();
+			{ ?> 
+			<p class='meldung'>Ein neues Passwort ist generiert worden und per Mail unterwegs die angegebene Adresse.</p>
+			<?php $_SESSION['passwort'] = 'gemailt';
+		} else { ?> 
+			<p class='meldung'>Ein Fehler ist passiert. Bitte probiere es nochmals oder wende dich per Mail an <a href="mailto:peter.mueller@c-major.de">peter.mueller@c-major.de</a>!</p>
+			<?php zeige_formular();
 			$_SESSION['passwort'] = 'nicht_gemailt';
 		}
 	}
 }
 
-fehlersuche ($_POST,'POST');
-fehlersuche ($_SESSION,'Session');
-
-require('includes/footer.php');
 ?>
