@@ -10,7 +10,7 @@ function buchung_mailen($userid,$buchungsbeginn,$buchungsende,$text='Buchung')
 	// Welchen Betreff soll die Mail erhalten?
 	$strSubject = TITEL;
 	// wie heißt der User (Reply-Mailadresse)
-	$user = $_SESSION['benutzer'];
+	$user = $_SESSION['mailadresse'];
 	$vorname = $_SESSION['vorname'];
 	$name = $_SESSION['name'];
 	// Mail-Layout
@@ -42,7 +42,7 @@ function connect ()
 function fehlersuche($var,$info='Debug')
     { 
     // Fehlersuche an oder aus, 1 oder 0
-    $fehlersuche = 0;
+    $fehlersuche = 1;
     if($fehlersuche)
 		{ ?> 
      <pre class='fehlersuche'>
@@ -206,7 +206,7 @@ function input_text($feldname, $label='Textfeld')
     if (iswech() && isset($_POST['benutzer']))
         { ?> 
         <td><input type='text' name='<?php print $feldname;?>' value='<?php print htmlentities($_POST[$feldname]);?>'></td>
-    <?php } elseif (isset($_SESSION['benutzer']) && isset($_SESSION[$feldname]))
+    <?php } elseif (isset($_SESSION['mailadresse']) && isset($_SESSION[$feldname]))
         { ?> 
         <td><input type='text' name='<?php print $feldname;?>' value='<?php print htmlentities($_SESSION[$feldname]);?>'></td>
     <?php } else { ?> 

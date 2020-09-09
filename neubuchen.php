@@ -27,8 +27,9 @@ if ($_SESSION['login'] == 1)
 		} else {
 			verarbeite_neubuchenformular();
 		}
-	} else {
-		zeige_neubuchenformular();
+	} else { ?> 
+		<p>Hallo <?php print $_SESSION['vorname'];?>!</p>
+		<?php zeige_neubuchenformular();
 	}
 }
 

@@ -115,7 +115,7 @@ function validiere_formular() {
 function verarbeite_formular()
 	{
 	global $pdo_handle;
-	$user = $_SESSION['benutzer'];
+	$user = $_SESSION['mailadresse'];
 	$dbpass = md5($_POST['passwort']);
 	$sql = "UPDATE studio_user
 		SET pass = :dbpass, pass_changed = '1'

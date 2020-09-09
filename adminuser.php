@@ -41,7 +41,8 @@ $sql = "SELECT user as 'Mailadresse',
 		vorname as 'Vorname',
 		name as 'Name',
 		userpreis as 'Preis',
-		id as 'ID'
+		id as 'ID',
+		pass as 'Passworthash'
 	FROM studio_user
 	ORDER BY id";
 pdo_out($pdo_handle,$sql, 'Eingetragene User');

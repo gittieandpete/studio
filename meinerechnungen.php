@@ -21,7 +21,7 @@ if ($_SESSION['login'] == 1)
 	{
 	global $pdo_handle; ?> 
 	<h3>Rechnungsübersicht</h3>
-	<?php $user = $_SESSION['benutzer'];
+	<?php $user = $_SESSION['mailadresse'];
 	$userid = $_SESSION['userid'];
 	// Abfragen: Buchungen eines Monats, davon die Preise, Anzahl, Summe
 	// ausrechnen per PHP für die Monatsrechung

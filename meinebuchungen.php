@@ -23,7 +23,7 @@ logincheck();
 if ($_SESSION['login'] == 1)
 	{ ?> 
 	<h3>Buchungsübersicht</h3>
-	<?php $user = $_SESSION['benutzer'];
+	<?php $user = $_SESSION['mailadresse'];
 	$userid = $_SESSION['userid'];
 	fehlersuche($userid, 'Userid');
 	$now = time();

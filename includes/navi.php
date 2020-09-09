@@ -4,7 +4,6 @@
 <ul class="menu">
 
 <?php //function menue ($adresse,$ankertext,$linktitel='Link')
-	menue (LOGIN, 'Login', 'Startseite');
 	menue (NEUBUCHEN, 'Neu buchen','Neue Buchung anlegen');
 	menue (MEINEBUCHUNGEN, 'Meine Buchungen', 'Übersicht über meine zukünftigen Buchungen');
 	menue (MEINERECHNUNGEN, 'Meine Rechnungen', 'Übersicht über meine bisherigen Ausgaben dieses Jahr');
@@ -13,7 +12,7 @@
 	menue (KALENDER, 'Kalender', 'Übersicht über alle Termine eines Monats');
 	menue (PASSWORTAENDERN, 'Passwort ändern');
 
-if (isset($_SESSION['benutzer']) && $_SESSION['admin']>0)
+if (isset($_SESSION['mailadresse']) && $_SESSION['admin']>0)
 	{
 	if ($_SESSION['admin']>3)
 		{
