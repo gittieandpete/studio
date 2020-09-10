@@ -29,7 +29,8 @@ if ($_SESSION['login'] == 1)
 		}
 	} else { ?> 
 		<p>Hallo <?php print $_SESSION['vorname'];?>!</p>
-		<?php zeige_neubuchenformular();
+		<?php password_changed_check();
+		zeige_neubuchenformular();
 	}
 }
 

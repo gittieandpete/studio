@@ -55,11 +55,11 @@ function zeige_formular($fehler = '')
 	<?php }  ?> 
 	<table>
 	<?php // Benutzername
-	input_text('benutzer', 'Mailadresse');
+	input_text('mailadresse', 'Mailadresse');
 	// altes Passwort
-	input_passwort('pass_old', 'altes Passwort');
+	input_passwort('passwort', 'altes Passwort');
 	// Passwort
-	input_passwort('passwort', 'neues Passwort');
+	input_passwort('neues_passwort', 'neues Passwort');
 	input_passwort('passwort_control', 'neues Passwort'); ?> 
 		<tr>
 	<?php // Submit $feldname, $colspan, $label, input_submit liefert <td></td>
@@ -72,40 +72,8 @@ function zeige_formular($fehler = '')
 <?php }
 
 function validiere_formular() {
-	global $pdo_handle;
-	$fehler = array();
-	$fehler = validiere_post($_POST,$fehler);
-	// Positiv-Liste
-	$sql = "SELECT user, pass
-		FROM studio_user";
-	$stmt = $pdo_handle -> prepare($sql);
-	$stmt -> execute();
-	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	fehlersuche($result,'User-Pass');
-
-	if ($result)
-		{
-		for($i=0;$i<count($result);$i++)
-			{
-			$benutzer = $result[$i]['user'];
-			$pass = $result[$i]['pass'];
-			$user[$benutzer] = $pass;
-		}
-	}
-	fehlersuche($user,'Array User Pass');
-	// Sicherstellen, dass der Benutzername gültig ist
-	$fehlermeldung = 'Bitte gib einen gültigen Benutzernamen und ein gültiges Passwort ein.';
-	if (! array_key_exists($_POST['benutzer'], $user))
-		{
-		$fehler[0] = $fehlermeldung;
-	} elseif ($user[$_POST['benutzer']] != md5($_POST['pass_old']))
-		// Prüfen, ob das Passwort korrekt ist
-		// gespeichertes Passwort = $user[$_POST['benutzer']];
-		{
-		// Fehlermeldung gleich+wird ggf. überschrieben, erlaubt keine Rückschlüsse
-		$fehler[0] = $fehlermeldung;
-	}
-	if ($_POST['passwort'] != $_POST['passwort_control'])
+	$fehler = password_check();
+	if ($_POST['neues_passwort'] != $_POST['passwort_control'])
 		{
 		$fehler[] = "Bitte gib zwei mal dasselbe neue Passwort ein!";
 	}
@@ -115,8 +83,9 @@ function validiere_formular() {
 function verarbeite_formular()
 	{
 	global $pdo_handle;
-	$user = $_SESSION['mailadresse'];
-	$dbpass = md5($_POST['passwort']);
+	$user = $_POST['mailadresse'];
+	$passwort = $_POST['neues_passwort'];
+	$dbpass = password_hash($passwort, PASSWORD_DEFAULT);
 	$sql = "UPDATE studio_user
 		SET pass = :dbpass, pass_changed = '1'
 		WHERE user = :user

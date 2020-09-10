@@ -149,7 +149,9 @@ Betreff: $strSubject<br>
 Text: $mailtext<br>",'Mailtext');
 		// vorher und zum Testen noch Mail an mich
 		mail('peter.mueller@c-major.de', 'Passwort vergessen', $mailtext, $header);
-		$sent = mail($strEmpfaenger, $strSubject, $mailtext, $header); or die ("<p>Die Mail konnte nicht versendet werden. ");
+		// Zum Testen auskommentiert
+		// $sent = mail($strEmpfaenger, $strSubject, $mailtext, $header); 
+		$sent = 1;
 		if (!$sent)	{ ?> 
 		<p>Die Mail konnte nicht versendet werden. Das neue Passwort wurde noch nicht erzeugt. Bitte probiere es nochmals oder wende dich per Mail an <a href="mailto:peter.mueller@c-major.de">peter.mueller@c-major.de</a>!</p></p>
 		<?php } else {
