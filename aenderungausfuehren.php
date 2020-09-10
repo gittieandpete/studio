@@ -91,7 +91,7 @@ function zeige_formular($fehler = '')
 		'bisjahr' => date('Y')
 	);
 	if ($fehler) { ?> 
-		<ul>
+		<ul class='meldung'>
 			<li><?php print implode("</li>\n\t<li>",$fehler);?></li>
 		</ul>
 	<?php }  ?> 

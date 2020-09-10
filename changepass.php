@@ -63,7 +63,7 @@ function zeige_formular($fehler = '')
 	input_passwort('passwort_control', 'neues Passwort'); ?> 
 		<tr>
 	<?php // Submit $feldname, $colspan, $label, input_submit liefert <td></td>
-	input_submit('absenden','1','Passwort ändern'); ?> 
+	input_submit('absenden','2','Passwort ändern'); ?> 
 		</tr>
 	</table>
 	<?php input_hidden(); ?> 

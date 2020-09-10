@@ -69,7 +69,7 @@ function zeige_buchungsformular($fehler='')
 	{
 	global $wochentag, $anfang, $biswochentag, $ende, $anzahlstunden, $anzahlminuten;
 	if ($fehler) { ?> 
-		<ul>
+		<ul class='meldung'>
 			<li><?php print implode("</li>\n\t<li>",$fehler);?></li>
 		</ul>
 	<?php }  ?> 

@@ -68,7 +68,7 @@ function zeige_loeschformular($fehler = '')
 	if ($result) $columnkeys = array_keys($stmt->fetch(PDO::FETCH_ASSOC));
 
 	if ($fehler) { ?> 
-		<ul>
+		<ul class='meldung'>
 			<li><?php print implode("</li>\n\t<li>",$fehler);?></li>
 		</ul>
 	<?php } ?> 

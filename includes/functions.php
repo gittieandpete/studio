@@ -330,7 +330,6 @@ function verarbeite_logoutformular()
     $_SESSION['login'] = 0;
     session_destroy();
     fehlersuche($_SESSION, 'Session, verarbeite Logout');
-    // print "<p class=\"rechts\"><a href=\"" . LOGIN . "\">Login</a></p>";
 }
 
 function zeige_logoutformular()

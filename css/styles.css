@@ -24,6 +24,9 @@ body
 	margin:	0;
 	padding:	0;
 }
+form table {
+			margin: 0 auto;
+		}
 h1.logo
 	{
 	font-size:	160%;
@@ -32,6 +35,9 @@ h1.logo
 h2
 	{
 	font-size:	140%;
+}
+legend {
+	padding: 0 5px
 }
 table
 	{
@@ -287,4 +293,8 @@ Navigation Handheld
 	{
 	min-width: 	initial;
 	min-height: 	initial;
+}
+/* wird sonst von der Navigation verdeckt */
+.logoutformular {
+	margin: 0 66px 0 0;
 }

@@ -64,11 +64,11 @@ function zeige_formular($fehler = '')
 	{
 	global $idwerte, $userid, $now;
 	global $pdo_handle;
-	if ($fehler) {
-		print '<ul><li>';
-		print implode('</li><li>',$fehler);
-		print '</li></ul>';
-	}
+	if ($fehler) { ?> 
+		<ul class='meldung'>
+			<li><?php print implode("</li>\n\t<li>",$fehler) ?></li>
+		</ul>
+	<?php }
 	$sql = "SELECT id,
 			DATE_FORMAT(begintime, '%d.%m.%Y %H:%i') as 'Beginn',
  			DATE_FORMAT(endtime, '%d.%m.%Y %H:%i') as 'Ende'
@@ -85,46 +85,39 @@ function zeige_formular($fehler = '')
 	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	$stmt -> execute();
 	if ($result) $columnkeys = array_keys($stmt->fetch(PDO::FETCH_ASSOC));
-	fehlersuche($result,'Abfrage Löschung DB');
-	print "<form method=\"POST\" action=\"" . htmlspecialchars($_SERVER['PHP_SELF']) . "\">\n";
-	print "\t<fieldset>\n";
-	print "\t<legend>Buchung aussuchen</legend>\n";
-	print "<table class=\"rahmen\">\n";
-	print "<caption>Buchungen</caption>\n";
-	print "\t<tr>\n";
-	for ($i = 0; $i < count($columnkeys); $i++)
-		{
-		print "\t<th>$columnkeys[$i]</th>\n";
-	}
-	// zusätzliche Spalte Radio-Button
-	print "\t<th>Wahl</th>\n";
-	print "\t</tr>\n\n";
-
-	for ($i=0;$i<count($result);$i++)
-		{
-		print "\t<tr>\n";
-		foreach ($result[$i] as $schluessel => $wert)
-			{
-			print "\t<td>$wert</td>\n";
-		}
-		// function input_radiocheck($typ, $elementname, $werte, $elementwert)
-		print "\t<td>";
-		input_radiocheck('radio', 'loeschen', $idwerte, $result[$i]['id']);
-		print "</td>\n";
-		print "\t</tr>\n\n";
-	}
-
-
-	print "\t<tr>\n";
-	// $feldname, $colspan, $label
-	input_submit('absenden','4','löschen');
-	print "\t</tr>\n\n";
-	print "</table>";
-	print "\t</fieldset>\n";
-	input_hidden();
-	print '</form>';
-
-}
+	fehlersuche($result,'Abfrage Löschung DB'); ?> 
+	<form method='POST' action='<?php print htmlspecialchars($_SERVER['PHP_SELF']);?>'>
+		<fieldset><legend>Buchung aussuchen</legend>
+			<table class='rahmen'>
+			<caption>Buchungen</caption>
+				<tr>
+	<?php for ($i = 0; $i < count($columnkeys); $i++)
+		{ ?> 
+					<th><?php print $columnkeys[$i];?></th>
+	<?php }
+	// zusätzliche Spalte Radio-Button ?> 
+					<th>Wahl</th>
+				</tr>
+	<?php for ($i=0;$i<count($result);$i++)
+		{ ?> 
+				<tr>
+		<?php foreach ($result[$i] as $schluessel => $wert)
+			{ ?> 
+					<td><?php print $wert;?></td>
+		<?php }
+		// function input_radiocheck($typ, $elementname, $werte, $elementwert) ?> 
+					<td><?php input_radiocheck('radio', 'loeschen', $idwerte, $result[$i]['id']); ?></td>
+				</tr>
+	<?php } ?> 
+				<tr>
+	<?php // $feldname, $colspan, $label
+	input_submit('absenden','4','löschen'); ?> 
+				</tr>
+			</table>
+		</fieldset>
+	<?php input_hidden(); ?> 
+	</form>
+<?php }
 
 function validiere_formular()
 	{
@@ -163,9 +156,9 @@ function verarbeite_formular()
 	if ($result) $columnkeys = array_keys($stmt->fetch(PDO::FETCH_ASSOC));
 	//function pdo_result_out($result,$columnkeys,$caption = 'Tabelle')
 	$caption='Diese Buchung löschen';
-	pdo_result_out($result,$columnkeys,$caption);
-	print "<p><a href=\"" . LOESCHUNGAUSFUEHREN . "\">Weiter &rarr; (Löschung ausführen)</a></p>";
-}
+	pdo_result_out($result,$columnkeys,$caption); ?> 
+	<p><a href='<?php print LOESCHUNGAUSFUEHREN;?>'>Weiter &rarr; (Löschung ausführen)</a></p>
+<?php }
 
 fehlersuche ($_POST);
 fehlersuche ($_SESSION);

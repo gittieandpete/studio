@@ -61,7 +61,7 @@ function zeige_neubuchenformular($fehler = '')
 		'bisjahr' => date('Y')
 	);
 	if ($fehler) { ?> 
-		<ul>
+		<ul class='meldung'>
 			<li><?php print implode("</li>\t\n<li>",$fehler);?></li>
 		</ul>
 	<?php } ?> 

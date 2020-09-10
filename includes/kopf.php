@@ -1,7 +1,4 @@
 <div class="kopfzeile">
-
-<h1 class='logo' id='kopf'><?php print TITEL;?></h1>
-
 <?php
 // gesetzte Variablen
 if (!isset ($_SESSION['login']))
@@ -13,7 +10,6 @@ if (!isset($_POST['logout']))
     {
     $_POST['logout'] = 0;
 }
-
 if ($_SESSION['login'] == 1)
     {
     if ($_POST['logout'] == 1)
@@ -31,7 +27,6 @@ if ($_SESSION['login'] == 1)
     zeige_logoutformular();
     }
 }
-
 ?>
-
+<h1 class='logo' id='kopf'><?php print TITEL;?></h1>
 </div> <!--class="kopfzeile"-->
