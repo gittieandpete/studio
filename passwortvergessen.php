@@ -59,7 +59,7 @@ function zeige_formular($fehler = '')
 	input_text('user', 'Mailadresse'); ?> 
 		<tr>
 	<?php // Submit
-	input_submit('absenden', '1', 'Passwort anfordern'); ?> 
+	input_submit('absenden', '2', 'Passwort anfordern'); ?> 
 		</tr>
 	</table>
 	<?php input_hidden(); ?> 
@@ -138,7 +138,7 @@ function verarbeite_formular()
 		$strSubject  = 'Neues Passwort';
 		# Mail-Layout
 		$kopf = "Hallo,\n";
-		$inhalt = "Dein vorläufiges Passwort ist \n" . $pass . ". Bitte ändere nach dem nächsten Login (https://studio.c-major.de/) das Passwort!\n\nMailadresse: " . $user . "\nPasswort: " . $pass . "\n\n";
+		$inhalt = "Dein vorläufiges Passwort ist \n" . $pass . ". Bitte ändere nach dem nächsten Login das Passwort!\n\nMailadresse: " . $user . "\nPasswort: " . $pass . "\n\n";
 		$fuss = "Viele Grüße,\n\nPeter\n";
 		$mailtext = $kopf . $inhalt . $fuss;
 		// charset beachten
@@ -149,9 +149,9 @@ Betreff: $strSubject<br>
 Text: $mailtext<br>",'Mailtext');
 		// vorher und zum Testen noch Mail an mich
 		mail('peter.mueller@c-major.de', 'Passwort vergessen', $mailtext, $header);
-		// Zum Testen auskommentiert
-		// $sent = mail($strEmpfaenger, $strSubject, $mailtext, $header); 
-		$sent = 1;
+		$sent = mail($strEmpfaenger, $strSubject, $mailtext, $header); 
+		// Zum Testen, sonst auskommentieren!
+		// $sent = 1;
 		if (!$sent)	{ ?> 
 		<p>Die Mail konnte nicht versendet werden. Das neue Passwort wurde noch nicht erzeugt. Bitte probiere es nochmals oder wende dich per Mail an <a href="mailto:peter.mueller@c-major.de">peter.mueller@c-major.de</a>!</p></p>
 		<?php } else {
@@ -170,6 +170,7 @@ Text: $mailtext<br>",'Mailtext');
 		if ($ok)
 			{ ?> 
 			<p class='meldung'>Ein neues Passwort ist generiert worden und per Mail unterwegs die angegebene Adresse.</p>
+			Zurück zur <a href='<?php print $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];?>'>Startseite</a>.			
 			<?php $_SESSION['passwort'] = 'gemailt';
 		} else { ?> 
 			<p class='meldung'>Ein Fehler ist passiert. Bitte probiere es nochmals oder wende dich per Mail an <a href="mailto:peter.mueller@c-major.de">peter.mueller@c-major.de</a>!</p>
