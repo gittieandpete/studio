@@ -144,14 +144,15 @@ function verarbeite_formular()
 		// charset beachten
 		$header = "From: peter.mueller@c-major.de\r\nContent-type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n";
 		// abschicken
-		fehlersuche("An: $strEmpfaenger<br>
-Betreff: $strSubject<br>
-Text: $mailtext<br>",'Mailtext');
+		fehlersuche("An: $strEmpfaenger<br>Betreff: $strSubject<br>Text: $mailtext<br>",'Mailtext');
 		// vorher und zum Testen noch Mail an mich
 		mail('peter.mueller@c-major.de', 'Passwort vergessen', $mailtext, $header);
 		$sent = mail($strEmpfaenger, $strSubject, $mailtext, $header); 
-		// Zum Testen, sonst auskommentieren!
-		// $sent = 1;
+		// Zum Testen; siehe functions (an oder aus)
+		global $testing_environment;
+		if ($testing_environment) {
+		$sent = 1;
+		}
 		if (!$sent)	{ ?> 
 		<p>Die Mail konnte nicht versendet werden. Das neue Passwort wurde noch nicht erzeugt. Bitte probiere es nochmals oder wende dich per Mail an <a href="mailto:peter.mueller@c-major.de">peter.mueller@c-major.de</a>!</p></p>
 		<?php } else {

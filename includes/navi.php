@@ -17,6 +17,7 @@ if (isset($_SESSION['mailadresse']) && $_SESSION['admin']>0)
 	if ($_SESSION['admin']>3)
 		{
 		menue (ADMINBUCHUNGEN, 'Alle Buchungen', '...aller User');
+		menue (TERMINBOT, 'Terminbot', 'prüfe und mache dann neue Termine');
 	}
 	if ($_SESSION['admin']%4>1)
 		{

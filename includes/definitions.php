@@ -1,6 +1,4 @@
 <?php
-// für leere Tipps in Formularfeldern
-define('DEFAULTWERT','?');
 define('TITEL', 'Studio Belegung');
 define('MAILADRESSE','peter.mueller@c-major.de');
 // absolute Pfade ab webroot angeben (/ordner/datei.end)
@@ -20,3 +18,4 @@ define('NEUBUCHEN', '/neubuchen.php');
 define('PASSWORTAENDERN', '/changepass.php');
 define('PASSWORTVERGESSEN', '/passwortvergessen.php');
 define('REGISTRIEREN', '/registrieren.php');
+define('TERMINBOT', '/terminbot.php');

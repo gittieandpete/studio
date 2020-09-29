@@ -9,7 +9,11 @@ connect();
 session_start();
 session_regenerate_id(true);
 require('includes/head.php');
-require('includes/kopf.php'); ?> 
+require('includes/kopf.php'); 
+if ($_SESSION['login'] == 1) {
+	require('includes/navi.php');
+	}
+?> 
 
 <h2><?php print $titel;?></h2>
 

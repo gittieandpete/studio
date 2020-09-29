@@ -1,6 +1,10 @@
 <?php
 setlocale(LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
 date_default_timezone_set('Europe/Berlin');
+// Fehlersuche an oder aus, 0 oder 1
+$fehlersuche = 0;
+// Zum Testen anschalten (1 setzen) testing_environment 
+$testing_environment = 0;
 
 function buchung_mailen($userid,$buchungsbeginn,$buchungsende,$text='Buchung')
 	{
@@ -41,8 +45,8 @@ function connect ()
 
 function fehlersuche($var,$info='Debug')
     { 
-    // Fehlersuche an oder aus, 1 oder 0
-    $fehlersuche = 0;
+    global $fehlersuche;
+    // Fehlersuche an oder aus, 1 oder 0, siehe oben
     if($fehlersuche)
 		{ ?> 
      <pre class='fehlersuche'>

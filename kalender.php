@@ -113,7 +113,7 @@ function zeige_formular($fehler = '') {
 	<form class='kalender' method='POST' action='<?php print $_SERVER['PHP_SELF'];?>'>
 	<?php input_select_sklar('monat', $standardwerte, $monate);
 	input_select_sklar('jahr',  $standardwerte, $jahre);
-	input_submit_sklar('absenden','Kalender anzeigen'); ?> 
+	input_submit_sklar('absenden','Auswahl anzeigen'); ?> 
 	<input type="hidden" name="_abgeschickt_test" value="1"/>
 	</form>
 <?php }
