@@ -10,7 +10,7 @@ session_start();
 session_regenerate_id(true);
 require('includes/head.php');
 require('includes/kopf.php');
-require('includes/navi.php'); ?> 
+require('includes/navi.php'); ?>
 
 <h2><?php print $titel;?></h2>
 
@@ -66,7 +66,7 @@ function zeige_formular($fehler = '')
 	{
 	global $idwerte, $userid, $now;
 	global $pdo_handle;
-	if ($fehler) { ?> 
+	if ($fehler) { ?>
 		<ul class='meldung'>
 			<li><?php print implode("</li>\n\t<li>",$fehler);?>
 			</li>
@@ -89,7 +89,7 @@ function zeige_formular($fehler = '')
 	$stmt -> execute();
 	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	$stmt -> execute();
-	if ($result) $columnkeys = array_keys($stmt->fetch(PDO::FETCH_ASSOC)); ?> 
+	if ($result) $columnkeys = array_keys($stmt->fetch(PDO::FETCH_ASSOC)); ?>
 	<form method='POST' action='<?php print htmlspecialchars($_SERVER['PHP_SELF']);?>'>
 		<fieldset>
 		<legend>Buchung aussuchen</legend>
@@ -97,30 +97,30 @@ function zeige_formular($fehler = '')
 			<caption>Buchungen</caption>
 				<tr>
 	<?php for ($i = 0; $i < count($columnkeys); $i++)
-		{ ?> 
+		{ ?>
 					<th><?php print $columnkeys[$i];?></th>
 	<?php }
-	// zusätzliche Spalte Radio-Button ?> 
+	// zusätzliche Spalte Radio-Button ?>
 					<th>Wahl</th>
 				</tr>
 	<?php for ($i=0;$i<count($result);$i++)
-		{ ?> 
+		{ ?>
 				<tr>
 		<?php foreach ($result[$i] as $schluessel => $wert)
-			{ ?> 
+			{ ?>
 					<td><?php print $wert;?></td>
 		<?php }
-		// function input_radiocheck($typ, $elementname, $werte, $elementwert) ?> 
+		// function input_radiocheck($typ, $elementname, $werte, $elementwert) ?>
 					<td><?php input_radiocheck('radio', 'aendern', $idwerte, $result[$i]['id']); ?></td>
 				</tr>
 	<?php } ?>
 				<tr>
 	<?php // $feldname, $colspan, $label
-	input_submit('absenden','4','ändern'); ?> 
+	input_submit('absenden','4','ändern'); ?>
 				</tr>
 		</table>
 		</fieldset>
-	<?php input_hidden(); ?> 
+	<?php input_hidden(); ?>
 	</form>
 <?php }
 
@@ -143,29 +143,11 @@ function validiere_formular()
 
 function verarbeite_formular()
 	{
-	global 	$pdo_handle;
 	$_SESSION['aendern'] = $_POST['aendern'];
-	$aenderungsid = intval($_SESSION['aendern']);
-	$userid = intval($_SESSION['userid']);
-	$sql = "SELECT
-	 	DATE_FORMAT(begintime, '%d.%m.%Y %H:%i') as 'Beginn',
-	 	DATE_FORMAT(endtime, '%d.%m.%Y %H:%i') as 'Ende'
-		FROM studio_buchung
-		WHERE id = :aenderungsid
-		LIMIT 0,1";
-
-	$stmt = $pdo_handle -> prepare($sql);
-	$stmt -> bindParam(':aenderungsid', $aenderungsid);
-	$stmt -> execute();
-	$result = $stmt->fetchAll(PDO::FETCH_OBJ);
-	$stmt -> execute();
-	if ($result) $columnkeys = array_keys($stmt->fetch(PDO::FETCH_ASSOC));
-	$caption = 'Diese Buchung wurde ausgewählt:';
-	//function pdo_result_out($result,$columnkeys,$caption = 'Tabelle')
-	pdo_result_out($result,$columnkeys,$caption);
-
-	print "<p><a href=\"" . AENDERUNGAUSFUEHREN . "\">Weiter &rarr; (Änderung ausführen)</a></p>";
+	// see definitons.php
+	header('Location: ' . AENDERUNGAUSFUEHREN);
 }
+
 fehlersuche ($_POST, 'Post');
 fehlersuche ($_SESSION, 'Session');
 

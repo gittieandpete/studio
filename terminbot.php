@@ -15,14 +15,14 @@ require('includes/navi.php');
 // Kopiert von lukas.
 
 logincheck();
-	
+
 if ($_SESSION['admin']>3)
-	{ ?> 
+	{ ?>
 	<h2><?php print $titel;?></h2>
-	<?php 
+	<?php
 	// maximum of bookings ahead, number of weeks to check, see function check_if_new_bookings
 	$range = 8;
-	print '<p>checks new bookings. If yes, call function make_new_bookings, 
+	print '<p>checks new bookings. If yes, call function make_new_bookings,
 		then again check bookings (range ' . $range . ' weeks)</p>';
 	check_if_new_bookings();
 }
@@ -38,7 +38,7 @@ function make_new_bookings ($lastbooking) {
 	$hours = 60*60;
 	$minutes = 60;
 	/*
-	Daten: 
+	Daten:
 	           	Wochentag  	Beginn 	Ende
 	$begin1  	Donnerstag 	10  	18
 	*/
@@ -53,14 +53,14 @@ function make_new_bookings ($lastbooking) {
 	// weitere Termine bei Bedarf
 	// $termine['begin'][1] = $nextbookingday + 1*$days + 10*$hours;
 	// $termine['end'][1] = $nextbookingday + 1*$days + 12*$hours;
-	// Der Tag, die Anfangs- und Endzeit sind ok, jetzt den Termin buchen. 
+	// Der Tag, die Anfangs- und Endzeit sind ok, jetzt den Termin buchen.
 	// mysql -u web330 -p usr_web330_1
 	// Buchung für Christine, userID 3
 	// print_r($termine);
-	$sql = 'INSERT 
-		INTO studio_buchung (userID, begintime, endtime) 
+	$sql = 'INSERT
+		INTO studio_buchung (userID, begintime, endtime)
 		VALUES (3,:begintime,:endtime)';
-	$stmt = $pdo_handle -> prepare($sql);	
+	$stmt = $pdo_handle -> prepare($sql);
 	$stmt -> bindParam(':begintime', $begin);
 	$stmt -> bindParam(':endtime', $end);
 	// zählt Anzahl der Beginnzeiten
@@ -68,7 +68,7 @@ function make_new_bookings ($lastbooking) {
 		$begin = date('Y-m-d H:i:s', $termine['begin'][$i]);
 		$end = date('Y-m-d H:i:s', $termine['end'][$i]);
 		$stmt -> execute();
-	} 
+	}
 	check_if_new_bookings();
 }
 
@@ -79,12 +79,12 @@ function check_if_new_bookings() {
 	// geht davon aus, dass ich nicht andere Termine vor dieser Zeit im Voraus gebucht habe.
 	// da ich nicht prüfe, ob es Termine von anderen zu dieser Zeit gibt, nehme ich den letzten gebuchten Termin.
 	// mysql -u web330 -p usr_web330_1
-	$query = 'SELECT 
-		UNIX_TIMESTAMP(begintime) AS unixtime 
-		FROM studio_buchung 
-		WHERE begintime = 
-			(SELECT 
-			MAX(begintime) 
+	$query = 'SELECT
+		UNIX_TIMESTAMP(begintime) AS unixtime
+		FROM studio_buchung
+		WHERE begintime =
+			(SELECT
+			MAX(begintime)
 			FROM studio_buchung)';
 	$stmt = $pdo_handle -> query($query);
 	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);

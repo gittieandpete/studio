@@ -11,7 +11,7 @@ session_regenerate_id(true);
 require('includes/head.php');
 require('includes/kopf.php');
 require('includes/navi.php');
-require('includes/datumsangaben.php'); ?> 
+require('includes/datumsangaben.php'); ?>
 
 <h2><?php print $titel;?></h2>
 
@@ -67,24 +67,24 @@ function zeige_loeschformular($fehler = '')
 	$stmt -> execute();
 	if ($result) $columnkeys = array_keys($stmt->fetch(PDO::FETCH_ASSOC));
 
-	if ($fehler) { ?> 
+	if ($fehler) { ?>
 		<ul class='meldung'>
 			<li><?php print implode("</li>\n\t<li>",$fehler);?></li>
 		</ul>
-	<?php } ?> 
+	<?php } ?>
 	<form method='POST' action='<?php print htmlspecialchars($_SERVER['PHP_SELF']);?>'>
 		<fieldset>
 		<legend>Löschung anzeigen</legend>
 	<?php $caption='Diese Buchung löschen';
-	pdo_result_out($result,$columnkeys,$caption); ?> 
+	pdo_result_out($result,$columnkeys,$caption); ?>
 	<table>
 		<tr>
 	<?php // $feldname, $colspan, $label
-	input_submit('absenden','0', 'Löschen'); ?> 
+	input_submit('absenden','0', 'Löschen'); ?>
 		</tr>
 	</table>
 	</fieldset>
-	<?php input_hidden(); ?> 
+	<?php input_hidden(); ?>
 	</form>
 <?php }
 
@@ -157,10 +157,11 @@ function verarbeite_loeschformular()
 		$ok = $stmt -> execute();
 		if ($ok)
 			{
-			$_SESSION['loeschung'] = 'vollzogen'; ?> 
+			$_SESSION['loeschung'] = 'vollzogen'; ?>
 			<p>Die Buchung wurde gelöscht.</p>
 			<p><a href='<?php print MEINEBUCHUNGEN;?>'>Meine Buchungen &rarr;</a></p>
-		<?php } else { ?> 
+			<p><a href='<?php print BUCHUNGLOESCHEN;?>'>Weitere Buchung löschen &rarr;</a></p>
+		<?php } else { ?>
 			<p>Die Löschung hat nicht funktioniert.</p>
 		<?php }
 	}

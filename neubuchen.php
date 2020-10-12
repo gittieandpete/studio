@@ -11,7 +11,7 @@ session_regenerate_id(true);
 require('includes/head.php');
 require('includes/kopf.php');
 require('includes/navi.php');
-require('includes/datumsangaben.php'); ?> 
+require('includes/datumsangaben.php'); ?>
 
 <h2><?php print $titel;?></h2>
 
@@ -27,7 +27,7 @@ if ($_SESSION['login'] == 1)
 		} else {
 			verarbeite_neubuchenformular();
 		}
-	} else { ?> 
+	} else { ?>
 		<p>Hallo <?php print $_SESSION['vorname'];?>!</p>
 		<?php password_changed_check();
 		zeige_neubuchenformular();
@@ -60,11 +60,11 @@ function zeige_neubuchenformular($fehler = '')
 		'bismonat' => date('n'),
 		'bisjahr' => date('Y')
 	);
-	if ($fehler) { ?> 
+	if ($fehler) { ?>
 		<ul class='meldung'>
 			<li><?php print implode("</li>\t\n<li>",$fehler);?></li>
 		</ul>
-	<?php } ?> 
+	<?php } ?>
 	<form method='POST' action='<?php print htmlspecialchars($_SERVER['PHP_SELF']);?>'>
 		<fieldset>
 		<legend>Neu buchen</legend>
@@ -72,37 +72,37 @@ function zeige_neubuchenformular($fehler = '')
 				<tr>
 					<td colspan='5'>Buchungsbeginn:</td>
 				</tr>
-	
+
 				<tr>
 					<td>
 	<?php input_select('tag', $timedefaults, $tage);
 	input_select('monat', $timedefaults, $monate);
 	input_select('jahr',  $timedefaults, $jahre);
 	input_select('stunde', $timedefaults, $stunden);
-	input_select('halbestunde', $timedefaults, $halbestunden); ?> 
+	input_select('halbestunde', $timedefaults, $halbestunden); ?>
 					</td>
 				</tr>
 
 				<tr>
 					<td colspan='5'>Buchungsende:</td>
 				</tr>
-		
+
 				<tr>
 					<td>
 	<?php input_select('bistag', $timedefaults, $tage);
 	input_select('bismonat', $timedefaults, $monate);
 	input_select('bisjahr',  $timedefaults, $jahre);
 	input_select('bisstunde', $timedefaults, $stunden);
-	input_select('bishalbestunde', $timedefaults, $halbestunden); ?> 
+	input_select('bishalbestunde', $timedefaults, $halbestunden); ?>
 					</td>
 				</tr>
 
 				<tr>
-	<?php input_submit('absenden','0','übernehmen'); ?> 
+	<?php input_submit('absenden','0','übernehmen'); ?>
 				</tr>
 			</table>
 		</fieldset>
-	<?php input_hidden(); ?> 
+	<?php input_hidden(); ?>
 	</form>
 <?php }
 
@@ -225,8 +225,9 @@ function verarbeite_neubuchenformular()
 	$_SESSION['buchungsende'] = $buchungsende;
 	$_SESSION['wochentag'] = $wochentag;
 	$_SESSION['biswochentag'] = $biswochentag;
-	$_SESSION['buchung'] = $buchung; ?> 
-	<p><a href='<?php print BUCHUNGZEIGEN;?>'>Weiter &rarr; (Buchung zeigen)</a></p>
-<?php }
+	$_SESSION['buchung'] = $buchung;
+	// see definitons.php
+	header('Location: ' . BUCHUNGZEIGEN);
+}
 
 ?>

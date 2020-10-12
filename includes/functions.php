@@ -8,6 +8,7 @@ $testing_environment = 0;
 
 function buchung_mailen($userid,$buchungsbeginn,$buchungsende,$text='Buchung')
 	{
+	global $fehlersuche;
 	// Zusätzlich die Buchung mailen
 	// MAILADRESSE siehe definitions.php
 
@@ -22,11 +23,15 @@ function buchung_mailen($userid,$buchungsbeginn,$buchungsende,$text='Buchung')
 	$mailtext = $text . strftime(' von %A, %x, %H:%M Uhr ',$buchungsbeginn) . strftime('bis %A, %x, %H:%M Uhr',$buchungsende) . ", $vorname $name.";
 	// abschicken
 	fehlersuche("Header: $header<br>\nAn: " . MAILADRESSE . "<br>\nBetreff: $strSubject<br>\nText: $mailtext<br>",'Mailtext');
-	$sent = mail(MAILADRESSE, $strSubject, $mailtext, $header);
-	if (!$sent)
-		{ ?> 
-		<p>Die Mail konnte nicht versendet werden.</p>
-	<?php }
+	if ($fehlersuche) {
+		print '<p>Testlauf. Mail wird hier ausgegeben.</p>';
+	} else {
+		$sent = mail(MAILADRESSE, $strSubject, $mailtext, $header);
+		if (!$sent)
+			{ ?> 
+			<p>Die Mail konnte nicht versendet werden.</p>
+		<?php }
+	}
 }
 
 
